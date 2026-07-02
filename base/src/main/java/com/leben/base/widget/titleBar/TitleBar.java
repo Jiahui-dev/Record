@@ -54,7 +54,6 @@ public class TitleBar extends ConstraintLayout {
         mIvBack = findViewById(R.id.iv_back);
         mRightContainer = findViewById(R.id.ll_right_custom_container);
         mTextSwitcher = findViewById(R.id.ts_hint_text);
-        mTvSearchBtn = findViewById(R.id.tv_search_btn);
         mSearchGroup = findViewById(R.id.cl_search_group);
         mTvCenterTitle = findViewById(R.id.tv_center_title);
 

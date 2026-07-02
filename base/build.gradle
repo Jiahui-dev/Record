@@ -74,7 +74,7 @@ dependencies {
     // 沉浸式状态栏
     api 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     //ARouter
-    api 'com.alibaba:arouter-api:1.5.2'
+    //api 'com.alibaba:arouter-api:1.5.2'
     annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
     // SwipeRefreshLayout
     api "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
