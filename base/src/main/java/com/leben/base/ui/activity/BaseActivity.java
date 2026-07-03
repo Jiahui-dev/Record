@@ -216,7 +216,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     /**
-     * 钩子方法：子类可以重写这个方法来改变状态栏颜色
+     * 子类可以重写这个方法来改变状态栏颜色
      * 默认返回灰色
      */
     protected int getStatusBarColor() {
@@ -224,12 +224,40 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     /**
-     * 钩子方法：子类可以重写这个方法来改变状态栏字体颜色
+     * 子类可以重写这个方法来改变状态栏字体颜色
      * return true: 黑色字体 (适合浅色背景)
      * return false: 白色字体 (适合深色背景)
      */
     protected boolean isStatusBarDarkFont() {
         return true; // 默认黑色字体
+    }
+
+    /**
+     * 便捷绑定防抖点击事件（默认 500 毫秒防抖）
+     */
+    protected void setClick(View.OnClickListener listener, View... views) {
+        setClick(500, listener, views);
+    }
+
+    protected void setClick(final long delayMilliseconds,final View.OnClickListener listener,View... views){
+        if (views == null || listener == null) {
+            return;
+        }
+        for(View view :views){
+            if (view != null) {
+                view.setOnClickListener(new View.OnClickListener() {
+                    private long lastClickTime=0;
+                    @Override
+                    public void onClick(View view) {
+                        long currentTime=System.currentTimeMillis();
+                        if(currentTime-lastClickTime>=delayMilliseconds){
+                            lastClickTime=currentTime;
+                            listener.onClick(view);
+                        }
+                    }
+                });
+            }
+        }
     }
 
 }

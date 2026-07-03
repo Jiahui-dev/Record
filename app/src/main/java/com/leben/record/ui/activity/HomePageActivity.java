@@ -44,14 +44,10 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
     @SuppressLint("CheckResult")
     @Override
     public void initListener() {
-        RxView.clicks(ivAddProduct)
-                .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result->{
-                    BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
-                },throwable -> {
-                    LogUtils.error("点击事件错误: " + throwable.getMessage());
-                });
+        setClick(v->{
+            BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
+        },ivAddProduct);
+
     }
 
     @Override

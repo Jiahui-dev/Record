@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'maven-publish'
 }
 
 android {
@@ -32,19 +31,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.findByName('release') ?: components.release
-                groupId = 'com.leben.drinkshop'
-                artifactId = 'base-library'
-                version = '1.0.0'
-            }
-        }
     }
 }
 
