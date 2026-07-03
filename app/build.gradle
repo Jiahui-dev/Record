@@ -19,11 +19,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: "app"]
-            }
-        }
     }
 
     buildTypes {
@@ -46,8 +41,6 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     api project(':base')
-
-    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
 
     implementation 'com.google.code.gson:gson:2.10.1'
 }

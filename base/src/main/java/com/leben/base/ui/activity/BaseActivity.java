@@ -9,14 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.leben.base.Lifecycle;
 import com.leben.base.LifecycleManage;
 import com.leben.base.R;
+import com.leben.base.router.BaseRouter;
 import com.leben.base.annotation.InjectPresenter;
-import com.leben.base.config.AppConfig;
 import com.leben.base.contract.IBasePresenter;
 import com.leben.base.contract.IBaseView;
 import com.leben.base.util.LogUtils;
@@ -25,7 +23,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -56,7 +53,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
 
         setContentView(getLayoutId());
-
+        // 给 @IntentParam 赋值
+        BaseRouter.getInstance().inject(this);
         injectPresenters();
 
         // 2.Activity 自身的初始化

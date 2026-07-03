@@ -16,6 +16,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.leben.base.Lifecycle;
 import com.leben.base.LifecycleManage;
 import com.leben.base.R;
+import com.leben.base.router.BaseRouter;
 import com.leben.base.annotation.InjectPresenter;
 import com.leben.base.contract.IBasePresenter;
 import com.leben.base.contract.IBaseView;
@@ -88,6 +89,8 @@ public abstract class BaseFragment extends Fragment implements IBaseView, Lifecy
 
         if (mIsFirstInit) {
             // 1.注入 Presenter
+            // 给 @IntentParam 赋值
+            BaseRouter.getInstance().inject(this);
             injectPresenters();
 
             // 3.Fragment 自身的初始化

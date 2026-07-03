@@ -1,20 +1,19 @@
 package com.leben.record.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.leben.base.router.BaseRouter;
 import com.leben.base.ui.activity.BaseRecyclerActivity;
 import com.leben.base.ui.adapter.BaseRecyclerAdapter;
 import com.leben.base.util.LogUtils;
 import com.leben.base.widget.titleBar.TitleBar;
 import com.leben.record.R;
+import com.leben.record.constant.Constant;
 import com.leben.record.model.bean.ProductEntity;
 import com.leben.record.ui.adapter.HomePageProductAdapter;
-
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
@@ -42,9 +41,17 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
         titleBar.setBackVisible(false);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void initListener() {
-
+        RxView.clicks(ivAddProduct)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result->{
+                    BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
+                },throwable -> {
+                    LogUtils.error("点击事件错误: " + throwable.getMessage());
+                });
     }
 
     @Override
