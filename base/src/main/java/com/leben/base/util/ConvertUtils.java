@@ -84,6 +84,17 @@ public class ConvertUtils {
         }
     }
 
+    public static double toDouble(Object obj) {
+        if (obj == null) {
+            return -1.0;
+        }
+        try {
+            return Double.parseDouble(obj.toString());
+        } catch (NumberFormatException e) {
+            return -1.0;
+        }
+    }
+
     public static byte[] toByteArray(int i) {
         return ByteBuffer.allocate(4).putInt(i).array();
     }

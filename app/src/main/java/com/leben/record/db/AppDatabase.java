@@ -7,7 +7,7 @@ import com.leben.base.BaseApplication;
 import com.leben.record.model.bean.CategoryEntity;
 import com.leben.record.model.bean.ProductEntity;
 
-@Database(entities = {CategoryEntity.class, ProductEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {CategoryEntity.class, ProductEntity.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
 
@@ -23,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             BaseApplication.getAppContext(),
                             AppDatabase.class,
                             "record.db"
-                    ).build();
+                    ).fallbackToDestructiveMigration().build();
                 }
             }
         }

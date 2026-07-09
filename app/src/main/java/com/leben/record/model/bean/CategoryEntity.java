@@ -16,10 +16,6 @@ public class CategoryEntity {
     public CategoryEntity() {
     }
 
-    public CategoryEntity(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
     public int getId() {
         return id;
     }

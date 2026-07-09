@@ -41,7 +41,6 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
         titleBar.setBackVisible(false);
     }
 
-    @SuppressLint("CheckResult")
     @Override
     public void initListener() {
         setClick(v->{

@@ -3,15 +3,10 @@ package com.leben.record.model.bean;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "products",
-        foreignKeys = @ForeignKey(
-                entity = CategoryEntity.class,
-                parentColumns = "id",
-                childColumns = "category_id",
-                onDelete = ForeignKey.CASCADE //级联删除
-        ))
+@Entity(tableName = "products")
 public class ProductEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -30,13 +25,6 @@ public class ProductEntity {
     private int categoryId;
 
     public ProductEntity() {
-    }
-
-    public ProductEntity(String name, double price, String purchaseDate, int categoryId) {
-        this.name = name;
-        this.price = price;
-        this.purchaseDate = purchaseDate;
-        this.categoryId = categoryId;
     }
 
     public int getId() {
