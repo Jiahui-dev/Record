@@ -68,5 +68,11 @@ dependencies {
     //一行放不下自动换行
     api 'com.google.android.flexbox:flexbox:3.0.0'
 
+    def room_version = "2.6.1"
+
+    // 基础运行时和 Java 注解处理器，不包含任何 Kotlin/Compose 依赖
+    api "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
 
 }
