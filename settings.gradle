@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "Record"
 include ':app'
 include ':base'
+include ':base-core'
