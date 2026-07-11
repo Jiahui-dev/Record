@@ -1,25 +1,27 @@
 package com.leben.record.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
-import com.jakewharton.rxbinding2.view.RxView;
+import com.leben.base.annotation.InjectPresenter;
 import com.leben.base.router.BaseRouter;
 import com.leben.base.ui.activity.BaseRecyclerActivity;
 import com.leben.base.ui.adapter.BaseRecyclerAdapter;
-import com.leben.base.util.LogUtils;
 import com.leben.base.widget.titleBar.TitleBar;
 import com.leben.record.R;
 import com.leben.record.constant.Constant;
+import com.leben.record.contract.LoadProductsContract;
 import com.leben.record.model.bean.ProductEntity;
+import com.leben.record.presenter.LoadProductsPresenter;
 import com.leben.record.ui.adapter.HomePageProductAdapter;
-import java.util.concurrent.TimeUnit;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import java.util.List;
 
-public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
+public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> implements LoadProductsContract.View{
 
     private TitleBar titleBar;
     private ImageView ivAddProduct;
+
+    @InjectPresenter
+    LoadProductsPresenter loadProductsPresenter;
 
     @Override
     protected BaseRecyclerAdapter<ProductEntity> createAdapter() {
@@ -51,12 +53,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
 
     @Override
     public void initData() {
-
+        autoRefresh();
     }
 
     @Override
     public void onRefresh() {
-
+        loadProductsPresenter.loadProducts();
     }
 
     @Override
@@ -70,4 +72,24 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductEntity> {
     }
 
 
+    @Override
+    public void onLoadProductsSuccess(List<ProductEntity> productList) {
+        refreshListSuccess(productList);
+    }
+
+    @Override
+    public void onLoadProductsFailed(String errorMsg) {
+        refreshListFailed(errorMsg);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        autoRefresh();
+    }
+
+    @Override
+    protected boolean isSupportLoadMore() {
+        return false;
+    }
 }

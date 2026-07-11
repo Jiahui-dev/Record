@@ -81,7 +81,7 @@ public class LoadMoreController implements Lifecycle {
         isLoading=true;
         mPbLoading.setVisibility(View.VISIBLE);
         mTvLoading.setVisibility(View.VISIBLE);
-        mTvLoading.setText("正在加载更多...");
+        mTvLoading.setText("正在加载...");
 
         //移除点击事件 (防止正在加载时用户狂点)
         mFooterView.setOnClickListener(null);
@@ -122,13 +122,34 @@ public class LoadMoreController implements Lifecycle {
     }
 
     /**
-     * 重置控制器状态 (通常在下拉刷新 onRefresh 时调用)
+     * 重置控制器状态
      */
-    public void reset() {
-        isLoading = false;
-        hasMore = true;
+    public void reset(boolean hasMoreData,String endFooterText) {
+        this.isLoading = false;
+        this.hasMore = hasMoreData;
         mAdapter.removeFooterView();
+
+        // 如果刷新完直接就判定没有更多数据了（例如单页列表，或者不支持加载更多的页面）
+        if (!hasMoreData) {
+            if (mPbLoading != null) mPbLoading.setVisibility(View.GONE);
+            if (mTvLoading != null) {
+                mTvLoading.setVisibility(View.VISIBLE);
+                mTvLoading.setText(endFooterText!=null? endFooterText :"已经到底啦");
+            }
+            //没有更多数据时，清除掉点击事件
+            mFooterView.setOnClickListener(null);
+            mAdapter.addFooterView(mFooterView);
+        }
     }
+    /**
+     * 触发一次加载更多，供业务层重试使用
+     */
+    public void retryLoadMore() {
+        if (!isLoading) {
+            startLoadMore();
+        }
+    }
+
 
     @Override
     public void initData() {

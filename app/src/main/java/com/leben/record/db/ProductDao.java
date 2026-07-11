@@ -19,4 +19,7 @@ public interface ProductDao extends BaseDao<ProductEntity> {
             "WHERE categories.category_name= :categoryName")
     List<ProductEntity> getProductsByCategoryName(String categoryName);
 
+    @Query("SELECT * FROM products ORDER BY id DESC")
+    List<ProductEntity> getAll();
+
 }

@@ -63,9 +63,10 @@ public abstract class BaseRecyclerFragment<T> extends BaseRefreshFragment {
                 ViewStub stub = root.findViewById(errorStubId);
                 mStateController.setErrorViewStub(stub);
             }
-
+            mLoadMoreController = new LoadMoreController(mRecyclerView, mAdapter);
+            // 无论支不支持分页，统一初始化控制器，用来管理 Footer
             if (isSupportLoadMore()) {
-                mLoadMoreController = new LoadMoreController(mRecyclerView, mAdapter);
+                // 只有在支持分页的情况下，才去监听滑动触发加载更多
                 mLoadMoreController.setOnLoadMoreListener(this::onLoadMore);
                 // 注册控制器
                 registerController("loadMore_controller", mLoadMoreController);
@@ -100,7 +101,22 @@ public abstract class BaseRecyclerFragment<T> extends BaseRefreshFragment {
         }
         //3.重置加载更多状态
         if (mLoadMoreController != null) {
-            mLoadMoreController.reset();
+            // 如果列表压根不支持分页，那么刷新完第一页它直接就处于“没有更多数据”的状态 (hasMore = false)
+            boolean hasMore = isSupportLoadMore();
+            mLoadMoreController.reset(hasMore,getEndFooterText());
+        }
+    }
+
+    protected String getEndFooterText() {
+        return "已经到底啦";
+    }
+
+    /**
+     * 提供给子类手动调用：比如页面某个特殊按钮想触发点击重试底部的加载
+     */
+    protected void retryLoadMore() {
+        if (mLoadMoreController != null) {
+            mLoadMoreController.retryLoadMore();
         }
     }
 
@@ -112,8 +128,11 @@ public abstract class BaseRecyclerFragment<T> extends BaseRefreshFragment {
                 mStateController.showError();
             }
         }else{
-            //如果列表里已经有数据了，就不全屏显示，简单弹个吐司就行
-            showError(msg);
+            if (mLoadMoreController != null) {
+                mLoadMoreController.loadMoreFail();
+            } else {
+                showError(msg);
+            }
         }
     }
 

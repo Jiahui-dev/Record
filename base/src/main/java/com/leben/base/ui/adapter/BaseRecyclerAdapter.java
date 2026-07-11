@@ -148,7 +148,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseVi
     protected abstract void bindData(BaseViewHolder holder, T data, int position);
 
     public interface OnItemClickListener<T> {
-        // 核心改动：增加 viewId 参数
         void onItemClick(View view, int viewId, int position, T data);
     }
 

@@ -1,6 +1,10 @@
 package com.leben.base.ui.activity;
 
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewStub;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.leben.base.R;
@@ -62,9 +66,10 @@ public abstract class BaseRecyclerActivity<T> extends BaseRefreshActivity {
                 ViewStub stub=findViewById(errorStubId);
                 mStateController.setErrorViewStub(stub);
             }
-
+            // 无论支不支持分页，统一初始化控制器，用来管理 Footer
+            mLoadMoreController = new LoadMoreController(mRecyclerView, mAdapter);
+            // 只有在支持分页的情况下，才去监听滑动触发加载更多
             if (isSupportLoadMore()) {
-                mLoadMoreController = new LoadMoreController(mRecyclerView, mAdapter);
                 mLoadMoreController.setOnLoadMoreListener(this::onLoadMore);
                 // 注册控制器
                 registerController("loadMore_controller", mLoadMoreController);
@@ -87,8 +92,15 @@ public abstract class BaseRecyclerActivity<T> extends BaseRefreshActivity {
         if(mStateController!=null){
             mStateController.handleData(list);
         }
+
         if (mLoadMoreController != null) {
-            mLoadMoreController.reset();
+            // 下拉刷新成功时，我们需要告诉控制器：
+            // 1. 如果列表不支持分页（比如你的首页），那么刷新完第一页，它直接就代表“没有更多数据了” (hasMore = false)
+            // 2. 如果列表支持分页，我们假设第一页默认是“还有更多数据”的 (hasMore = true)
+            boolean hasMore = isSupportLoadMore();
+
+            // 让控制器去同步决定：是该隐藏 Footer 准备上拉，还是直接亮出“已经到底啦”
+            mLoadMoreController.reset(hasMore,getEndFooterText());
         }
     }
 
@@ -101,7 +113,11 @@ public abstract class BaseRecyclerActivity<T> extends BaseRefreshActivity {
             }
         }else{
             //如果列表里已经有数据了，就不全屏显示，简单弹个吐司就行
-            showError(msg);
+            if (mLoadMoreController != null) {
+                mLoadMoreController.loadMoreFail();
+            } else {
+                showError(msg);
+            }
         }
     }
 
@@ -116,6 +132,19 @@ public abstract class BaseRecyclerActivity<T> extends BaseRefreshActivity {
      * 子类提供 Adapter
      */
     protected abstract BaseRecyclerAdapter<T> createAdapter();
+
+    protected String getEndFooterText() {
+        return "已经到底啦";
+    }
+
+    /**
+     * 提供给子类手动调用：比如页面某个特殊按钮想触发点击重试底部的加载
+     */
+    protected void retryLoadMore() {
+        if (mLoadMoreController != null) {
+            mLoadMoreController.retryLoadMore();
+        }
+    }
 
     public void onLoadMore() {
     }
