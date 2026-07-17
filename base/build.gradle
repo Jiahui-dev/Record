@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.leben.base'
+    namespace 'com.yjh.base'
     compileSdk {
         version = release(36)
     }

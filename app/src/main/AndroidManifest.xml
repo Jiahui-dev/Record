@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.leben.base.BaseApplication"
+        android:name="com.yjh.base.core.BaseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name="com.leben.record.ui.activity.AddProductActivity"
+            android:name="com.yjh.record.ui.activity.AddProductActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
         </activity>

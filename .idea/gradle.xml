@@ -4,14 +4,33 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/../BaseDemo" name="BaseDemo">
+                <projects>
+                  <project path="$PROJECT_DIR$/../BaseDemo" />
+                  <project path="$PROJECT_DIR$/../BaseDemo/app" />
+                  <project path="$PROJECT_DIR$/../BaseDemo/base-core" />
+                  <project path="$PROJECT_DIR$/../BaseDemo/base-uikit" />
+                  <project path="$PROJECT_DIR$/../BaseDemo/base-utils" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
+            <option value="$PROJECT_DIR$/../BaseDemo" />
+            <option value="$PROJECT_DIR$/../BaseDemo/app" />
+            <option value="$PROJECT_DIR$/../BaseDemo/base-core" />
+            <option value="$PROJECT_DIR$/../BaseDemo/base-uikit" />
+            <option value="$PROJECT_DIR$/../BaseDemo/base-utils" />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
-            <option value="$PROJECT_DIR$/base-core" />
           </set>
         </option>
       </GradleProjectSettings>

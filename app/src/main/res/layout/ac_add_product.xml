@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_backGround">
 
-    <com.leben.base.widget.titleBar.TitleBar
+    <com.yjh.base.uikit.widget.titleBar.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

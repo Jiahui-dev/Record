@@ -25,4 +25,11 @@ dependencyResolutionManagement {
 rootProject.name = "Record"
 include ':app'
 include ':base'
-include ':base-core'
+includeBuild('../BaseDemo') {
+    dependencySubstitution {
+        // 将业务项目里依赖的 maven 坐标，无缝替换为本地对应的 module
+        substitute module('com.yjh.base.utils:base-utils') using project(':base-utils')
+        substitute module('com.yjh.base.core:base-core') using project(':base-core')
+        substitute module('com.yjh.base.uikit:base-uikit') using project(':base-uikit')
+    }
+}

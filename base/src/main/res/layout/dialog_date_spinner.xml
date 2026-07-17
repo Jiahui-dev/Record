@@ -57,21 +57,21 @@
         android:layout_height="260dp"
         android:orientation="horizontal">
 
-        <com.leben.base.widget.spinner.WheelView
+        <com.yjh.base.widget.spinner.WheelView
             android:id="@+id/wv_year"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <com.leben.base.widget.spinner.WheelView
+        <com.yjh.base.widget.spinner.WheelView
             android:id="@+id/wv_month"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <com.leben.base.widget.spinner.WheelView
+        <com.yjh.base.widget.spinner.WheelView
             android:id="@+id/wv_day"
             android:layout_width="0dp"
             android:layout_height="match_parent"

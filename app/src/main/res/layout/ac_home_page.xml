@@ -6,7 +6,7 @@
     android:background="@color/grey_backGround"
     android:orientation="vertical">
 
-    <com.leben.base.widget.titleBar.TitleBar
+    <com.yjh.base.uikit.widget.titleBar.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
