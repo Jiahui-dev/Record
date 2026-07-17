@@ -3,6 +3,7 @@ package com.yjh.record.ui.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.recyclerview.widget.RecyclerView;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.adapter.SimpleAdapter;
 import com.yjh.base.uikit.controller.IRefreshListener;
@@ -46,6 +47,16 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
+    protected RecyclerView attachRecyclerView() {
+        return null;
+    }
+
+    @Override
+    protected View attachRefreshLayout() {
+        return super.attachRefreshLayout();
+    }
+
+    @Override
     protected AcHomePageBinding initBinding(LayoutInflater inflater) {
         return AcHomePageBinding.inflate(inflater);
     }
@@ -59,6 +70,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         titleBar.addRightView(ivAddProduct,30,30);
         titleBar.setBackVisible(false);
     }
+
+
 
     @Override
     public void initListener() {
