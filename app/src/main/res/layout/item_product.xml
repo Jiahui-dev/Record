@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey_backGround">
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/iv_product_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_launcher_background"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:background="@color/grey_backGround"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tv_product_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="PS51111111111111111111"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="PS5"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/iv_product_picture"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_product_picture" />
 
         <TextView
             android:id="@+id/tv_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="¥1000"
-            android:textSize="26dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
-            app:layout_constraintStart_toEndOf="@id/iv_product_picture"/>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
         <TextView
             android:id="@+id/tv_purchase_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="2000年12月12日"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_product_name"
             app:layout_constraintTop_toBottomOf="@id/tv_product_price"
-            app:layout_constraintStart_toEndOf="@id/iv_product_picture" />
-
-
-
+            app:layout_constraintBottom_toBottomOf="@id/iv_product_picture" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
