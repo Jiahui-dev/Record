@@ -21,6 +21,6 @@ public interface ProductDao extends BaseDao<ProductBean> {
     List<ProductBean> getProductsByCategoryName(String categoryName);
 
     @Query("SELECT * FROM products ORDER BY id DESC")
-    LiveData<List<ProductBean>> getAll();
+    List<ProductBean> getAll();
 
 }

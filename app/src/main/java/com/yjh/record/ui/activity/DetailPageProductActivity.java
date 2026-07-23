@@ -3,11 +3,10 @@ package com.yjh.record.ui.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
 import com.yjh.base.uikit.activity.BaseActivity;
-import com.yjh.base.uikit.widget.dialog.CommonDialog;
+import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
@@ -16,6 +15,9 @@ import com.yjh.record.databinding.AcDetailPageProductBinding;
 import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
 
+/**
+ * Created by jiahui on 2026/7/23
+ */
 public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductBinding> implements DeleteProductContract.View {
 
     @IntentParam(name = "product")

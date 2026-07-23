@@ -10,7 +10,7 @@ import com.yjh.base.uikit.widget.dialog.bottom.GridPanelBottomDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.databinding.AcAddProductBinding;
-import com.yjh.record.model.bean.ProductIconBean;
+import com.yjh.record.model.ProductIconBean;
 import com.yjh.record.presenter.AddProductPresenter;
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
@@ -19,10 +19,12 @@ import com.yjh.base.uikit.widget.spinner.DateSpinner;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ConvertUtils;
 import com.yjh.base.utils.util.ToastUtils;
-
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Created by jiahui on 2026/7/18
+ */
 public class AddProductActivity extends BaseActivity<AcAddProductBinding> implements AddProductContract.View {
 
     @IntentParam
@@ -34,9 +36,6 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     private Button btnSubmitProduct;
     private ImageView ivProductIcon;
     private String dateStr;
-
-    // 记录当前选中的图标 ID，0 表示未选择/无图标
-    private int selectedIconRes = 0;
 
     @InjectPresenter
     AddProductPresenter addProductPresenter;
