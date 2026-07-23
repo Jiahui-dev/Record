@@ -145,7 +145,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     }
 
     @Override
-    protected View getTitleBarView() {
+    protected View getTitleBar() {
         return binding.titleBar;
     }
 

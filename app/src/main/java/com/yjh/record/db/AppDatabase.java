@@ -4,8 +4,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import com.yjh.base.core.BaseApplication;
-import com.yjh.record.model.bean.CategoryBean;
-import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.CategoryBean;
+import com.yjh.record.model.ProductBean;
 
 @Database(entities = {CategoryBean.class, ProductBean.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

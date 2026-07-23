@@ -3,6 +3,8 @@ package com.yjh.record.ui.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.adapter.SimpleAdapter;
@@ -12,13 +14,16 @@ import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;
 import com.yjh.record.databinding.AcHomePageBinding;
 import com.yjh.record.databinding.ItemProductBinding;
-import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.LoadProductsPresenter;
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.uikit.activity.BaseRecyclerActivity;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import java.util.List;
 
+/**
+ * Created by youjiahui on 2026/7/18
+ */
 public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePageBinding> implements IRefreshListener,LoadProductsContract.View{
 
     private TitleBar titleBar;
@@ -35,12 +40,17 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                 (binding, data, position) -> {
                     binding.tvProductName.setText(data.getName());
                     binding.tvProductPrice.setText(String.valueOf(data.getPrice()));
+                    binding.tvPurchaseDate.setText(data.getPurchaseDate());
                 }
         );
 
-        // 4. 如果需要点击事件，直接在这里顺手挂上
         adapter.setOnItemClickListener((view, viewId, position, data) -> {
-            // 处理 Item 的点击逻辑
+            setClick(v->{
+                BaseRouter.getInstance()
+                        .build(Constant.Router.DetailPageProduct)
+                        .withSerializable("product",data)
+                        .navigation(this);
+            },view);
         });
 
         return adapter;
@@ -48,12 +58,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     @Override
     protected RecyclerView attachRecyclerView() {
-        return null;
+        return binding.contentView;
     }
 
     @Override
     protected View attachRefreshLayout() {
-        return super.attachRefreshLayout();
+        return binding.swipeRefresh;
     }
 
     @Override
@@ -64,26 +74,26 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     public void initView() {
         super.initView();
-        titleBar=findViewById(R.id.title_bar);
+        titleBar=binding.titleBar;
         ivAddProduct=new ImageView(this);
         ivAddProduct.setImageResource(R.drawable.ic_add_circle);
         titleBar.addRightView(ivAddProduct,30,30);
         titleBar.setBackVisible(false);
     }
 
-
+    @Override
+    public void initData() {
+        loadProductsPresenter.loadProducts();
+    }
 
     @Override
     public void initListener() {
         setClick(v->{
-            BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
+            BaseRouter.getInstance()
+                    .build(Constant.Router.AddProduct)
+                    .navigation(this);
         },ivAddProduct);
 
-    }
-
-    @Override
-    public void initData() {
-        autoRefresh();
     }
 
     @Override
@@ -92,12 +102,18 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
+    public LifecycleOwner getLifecycleOwner() {
+        // 返回当前 Activity 作为生命周期所有者
+        return this;
+    }
+
+    @Override
     protected int getStatusBarColor() {
         return R.color.white;
     }
 
     @Override
-    protected View getTitleBarView() {
+    protected View getTitleBar() {
         return binding.titleBar;
     }
 
@@ -115,7 +131,6 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     public void onResume() {
         super.onResume();
-        autoRefresh();
     }
 
     @Override

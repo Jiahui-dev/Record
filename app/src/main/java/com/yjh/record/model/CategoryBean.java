@@ -1,4 +1,4 @@
-package com.yjh.record.model.bean;
+package com.yjh.record.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

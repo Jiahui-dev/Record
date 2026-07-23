@@ -5,7 +5,7 @@ import android.os.Looper;
 import com.yjh.base.core.presenter.BasePresenter;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.db.AppDatabase;
-import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.ProductBean;
 
 public class AddProductPresenter extends BasePresenter<AddProductContract.View> implements AddProductContract.Presenter {
 

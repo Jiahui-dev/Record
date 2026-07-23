@@ -1,9 +1,10 @@
 package com.yjh.record.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 import com.yjh.base.core.db.BaseDao;
-import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.ProductBean;
 import java.util.List;
 
 @Dao
@@ -20,6 +21,6 @@ public interface ProductDao extends BaseDao<ProductBean> {
     List<ProductBean> getProductsByCategoryName(String categoryName);
 
     @Query("SELECT * FROM products ORDER BY id DESC")
-    List<ProductBean> getAll();
+    LiveData<List<ProductBean>> getAll();
 
 }
