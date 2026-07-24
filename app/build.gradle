@@ -47,6 +47,6 @@ dependencies {
 
     implementation 'com.yjh.base.uikit:base-uikit:1.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-
+    implementation 'org.greenrobot:eventbus:3.3.1'
     annotationProcessor "androidx.room:room-compiler:2.6.1"
 }

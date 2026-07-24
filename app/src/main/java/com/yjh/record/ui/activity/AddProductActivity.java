@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.widget.dialog.bottom.GridPanelBottomDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
@@ -19,6 +21,9 @@ import com.yjh.base.uikit.widget.spinner.DateSpinner;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ConvertUtils;
 import com.yjh.base.utils.util.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +53,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     @Override
     public void initView() {
         TitleBar titleBar=findViewById(R.id.title_bar);
-        titleBar.setTitle("添加");
+        titleBar.setTitle("添加资产");
         etPurchaseDate=findViewById(R.id.et_purchase_date);
         btnSubmitProduct=findViewById(R.id.btn_submit_product);
         etProductName=findViewById(R.id.et_product_name);
@@ -144,7 +149,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     }
 
     @Override
-    protected View getTitleBar() {
+    protected View getTopView() {
         return binding.titleBar;
     }
 
@@ -152,6 +157,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     public void onSaveProductSuccess() {
         hideLoading();
         ToastUtils.show(this,"添加商品成功");
+        EventBus.getDefault().post(new RefreshEvent());
         finish();
     }
 

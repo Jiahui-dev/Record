@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
+import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.activity.BaseActivity;
 import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
@@ -14,6 +15,8 @@ import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.databinding.AcDetailPageProductBinding;
 import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by jiahui on 2026/7/23
@@ -68,7 +71,7 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
     }
 
     @Override
-    protected View getTitleBar() {
+    protected View getTopView() {
         return binding.titleBar;
     }
 
@@ -79,7 +82,8 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
 
     @Override
     public void onDeleteProductSuccess() {
-        ToastUtils.show(this,"物品已删除");
+        ToastUtils.show(this,"已删除");
+        EventBus.getDefault().post(new RefreshEvent());
         finish();
     }
 

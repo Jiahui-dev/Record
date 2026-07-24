@@ -3,10 +3,10 @@ package com.yjh.record.ui.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yjh.base.core.annotation.InjectPresenter;
+import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.activity.BaseRecyclerActivity;
 import com.yjh.base.uikit.adapter.SimpleAdapter;
@@ -16,11 +16,14 @@ import com.yjh.record.R;
 import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;
 import com.yjh.record.databinding.AcHomePageBinding;
-import com.yjh.record.databinding.ItemHomeHeaderBinding;
 import com.yjh.record.databinding.ItemProductBinding;
 import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.LoadProductsPresenter;
-import java.util.Collections;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 /**
@@ -32,19 +35,13 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     private TitleBar titleBar;
     private ImageView ivAddProduct;
 
-    // 1. 定义两个 SimpleAdapter，分别处理 Header 和 列表
-    private SimpleAdapter<HeaderEntity, ItemHomeHeaderBinding> headerAdapter;
     private SimpleAdapter<ProductBean, ItemProductBinding> productAdapter;
-
-    // 2. 存放 Header 状态的数据实体
-    private final HeaderEntity headerEntity = new HeaderEntity();
 
     @InjectPresenter
     LoadProductsPresenter loadProductsPresenter;
 
     @Override
     protected SimpleAdapter<ProductBean, ItemProductBinding> createAdapter() {
-        // 创建主列表的 SimpleAdapter
         productAdapter = new SimpleAdapter<>(
                 this,
                 ItemProductBinding::inflate,
@@ -68,48 +65,14 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
-    protected RecyclerView attachRecyclerView() {
-        return binding.contentView;
-    }
-
-    @Override
-    protected View attachRefreshLayout() {
-        return binding.swipeRefresh;
-    }
-
-    @Override
-    protected AcHomePageBinding initBinding(LayoutInflater inflater) {
-        return AcHomePageBinding.inflate(inflater);
-    }
-
-    @Override
     public void initView() {
         super.initView();
+        EventBus.getDefault().register(this);
+        ivAddProduct = binding.fabAddProduct;
 
-        // --- 头部 Icon 逻辑保持不动 ---
-        ivAddProduct = new ImageView(this);
-        ivAddProduct.setImageResource(R.drawable.ic_add_circle);
-
-        // --- 3. 初始化 Header 部分的 SimpleAdapter ---
-        headerAdapter = new SimpleAdapter<>(
-                this,
-                ItemHomeHeaderBinding::inflate,
-                (binding, data, position) -> {
-                    binding.tvSlogan.setText("阳光正好，复盘也正好");
-                    binding.tvTotalAmount.setText(data.totalAmount);
-                    binding.tvTotalNumber.setText(data.totalNumber);
-                }
-        );
-        // 让 Header 显示出一行 Item
-        headerAdapter.setList(Collections.singletonList(headerEntity));
-
-        // --- 4. 用 ConcatAdapter 拼接两个 SimpleAdapter ---
-        ConcatAdapter concatAdapter = new ConcatAdapter(headerAdapter, productAdapter);
-
-        // --- 5. 设置给 RecyclerView ---
         RecyclerView recyclerView = attachRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(concatAdapter);
+        recyclerView.setAdapter(productAdapter);
     }
 
     @Override
@@ -127,6 +90,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onRefresh() {
         loadProductsPresenter.loadProducts();
     }
@@ -136,27 +105,23 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         return R.color.grey_backGround;
     }
 
-
     @Override
     public void onLoadProductsSuccess(List<ProductBean> productList) {
-        // 刷新列表数据
+        // 1. 刷新基类自带的 Adapter 列表数据
         refreshListSuccess(productList);
 
-        // 计算总金额与总资产数，并更新 Header
+        // 2. 直接操作局部 View 来改变头部数据
         double totalAmount = 0;
+        int totalNumber = 0;
         if (productList != null) {
             for (ProductBean item : productList) {
                 totalAmount += item.getPrice();
             }
-            headerEntity.totalAmount = String.format("%.2f", totalAmount);
-            headerEntity.totalNumber = String.valueOf(productList.size());
-        } else {
-            headerEntity.totalAmount = "0.00";
-            headerEntity.totalNumber = "0";
+            totalNumber = productList.size();
         }
 
-        // 刷新 Header 布局
-        headerAdapter.notifyItemChanged(0);
+        binding.tvTotalAmount.setText(String.format("%.2f", totalAmount));
+        binding.tvTotalNumber.setText(String.valueOf(totalNumber));
     }
 
     @Override
@@ -169,11 +134,33 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         return false;
     }
 
-    /**
-     * 简单的实体类，用于驱动 Header 数据的更新
-     */
-    private static class HeaderEntity {
-        public String totalAmount = "0.00";
-        public String totalNumber = "0";
+    @Override
+    protected RecyclerView attachRecyclerView() {
+        return binding.contentView;
+    }
+
+    @Override
+    protected View attachRefreshLayout() {
+        return binding.swipeRefresh;
+    }
+
+    @Override
+    protected View getTopView() {
+        return binding.tvSlogan;
+    }
+
+    @Override
+    protected AcHomePageBinding initBinding(LayoutInflater inflater) {
+        return AcHomePageBinding.inflate(inflater);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshEvent(RefreshEvent event){
+        onRefresh();
+    }
+
+    @Override
+    protected int setFooterBackgroundColorRes() {
+        return R.color.white;
     }
 }
