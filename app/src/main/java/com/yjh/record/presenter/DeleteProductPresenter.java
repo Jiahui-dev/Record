@@ -5,7 +5,7 @@ import android.os.Looper;
 import com.yjh.base.core.presenter.BasePresenter;
 import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.db.AppDatabase;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 
 public class DeleteProductPresenter extends BasePresenter<DeleteProductContract.View> implements DeleteProductContract.Presenter{
 

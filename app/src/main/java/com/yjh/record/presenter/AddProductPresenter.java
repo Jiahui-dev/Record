@@ -5,7 +5,7 @@ import android.os.Looper;
 import com.yjh.base.core.presenter.BasePresenter;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.db.AppDatabase;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 
 public class AddProductPresenter extends BasePresenter<AddProductContract.View> implements AddProductContract.Presenter {
 
@@ -13,13 +13,15 @@ public class AddProductPresenter extends BasePresenter<AddProductContract.View> 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
-    public void saveProduct(String name, double price, String dateStr, int categoryId) {
+    public void saveProduct(String icon,String name, double price, String dateStr, int categoryId,String state) {
 
         ProductBean product = new ProductBean();
+        product.setIconCode(icon);
         product.setName(name);
         product.setPrice(price);
         product.setPurchaseDate(dateStr);
         product.setCategoryId(categoryId);
+        product.setStateCode(state);
 
         // 开启子线程读写 SQLite 数据库
         new Thread(() -> {

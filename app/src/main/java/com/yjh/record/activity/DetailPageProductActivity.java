@@ -13,7 +13,7 @@ import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
 import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.databinding.AcDetailPageProductBinding;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +41,7 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
         titleBar=binding.titleBar;
         titleBar.setTitle("资产详情");
         ivDeleteProduct=new ImageView(this);
-        ivDeleteProduct.setImageResource(R.drawable.pic_delect);
+        ivDeleteProduct.setImageResource(R.drawable.pic_delete);
         titleBar.addRightView(ivDeleteProduct,20,20);
         binding.tvProductName.setText(mProduct.getName());
         binding.tvProductPrice.setText(String.valueOf(mProduct.getPrice()));

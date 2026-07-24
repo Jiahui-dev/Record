@@ -1,4 +1,4 @@
-package com.yjh.record.model;
+package com.yjh.record.model.bean;
 
 public class ProductIconBean {
     private String title;

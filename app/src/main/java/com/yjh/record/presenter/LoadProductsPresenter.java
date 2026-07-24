@@ -3,7 +3,7 @@ package com.yjh.record.presenter;
 import com.yjh.base.core.presenter.BasePresenter;
 import com.yjh.record.contract.LoadProductsContract;
 import com.yjh.record.db.AppDatabase;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 import android.os.Handler;
 import android.os.Looper;
 import java.util.List;

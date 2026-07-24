@@ -1,7 +1,7 @@
 package com.yjh.record.contract;
 
 import com.yjh.base.core.contract.IBaseView;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 
 public interface DeleteProductContract {
     interface View extends IBaseView{

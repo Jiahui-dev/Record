@@ -17,7 +17,9 @@ import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;
 import com.yjh.record.databinding.AcHomePageBinding;
 import com.yjh.record.databinding.ItemProductBinding;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.dict.ProductIconDict;
+import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.LoadProductsPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +50,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     binding.tvProductName.setText(data.getName());
                     binding.tvProductPrice.setText(String.valueOf(data.getPrice()));
                     binding.tvPurchaseDate.setText(data.getPurchaseDate());
+                    binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
+                    binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
                 }
         );
 

@@ -1,10 +1,9 @@
 package com.yjh.record.db;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 import com.yjh.base.core.db.BaseDao;
-import com.yjh.record.model.ProductBean;
+import com.yjh.record.model.bean.ProductBean;
 import java.util.List;
 
 @Dao

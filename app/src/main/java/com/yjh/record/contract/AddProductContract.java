@@ -10,6 +10,6 @@ public interface AddProductContract {
     }
 
     interface Presenter {
-        void saveProduct(String name, double price, String dateStr, int categoryId);
+        void saveProduct(String icon,String name, double price, String dateStr, int categoryId,String state);
     }
 }

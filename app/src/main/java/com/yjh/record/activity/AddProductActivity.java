@@ -12,7 +12,9 @@ import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.databinding.AcAddProductBinding;
-import com.yjh.record.model.ProductIconBean;
+import com.yjh.record.model.bean.ProductIconBean;
+import com.yjh.record.model.dict.ProductIconDict;
+import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.AddProductPresenter;
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
@@ -41,6 +43,9 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     private ImageView ivProductIcon;
     private String dateStr;
 
+    private String selectedIconCode = ProductIconDict.GOODS.getCode();
+    private String selectedStateCode= ProductStateDict.IN_USE.getCode();
+
     @InjectPresenter
     AddProductPresenter addProductPresenter;
 
@@ -58,7 +63,9 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
         etProductName=findViewById(R.id.et_product_name);
         etProductPrice=findViewById(R.id.et_product_price);
         ivProductIcon=binding.ivProductIcon;
+        ivProductIcon.setImageResource(R.drawable.pic_goods);
         etProductState=binding.etProductState;
+        etProductState.setText(ProductStateDict.getTitleByCode(selectedStateCode));
     }
 
     @SuppressLint("SetTextI18n")
@@ -74,11 +81,12 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
         },etPurchaseDate);
 
         setClick(v->{
-            List<String> options=Arrays.asList("使用中","已损坏","已闲置");
+            List<String> options=ProductStateDict.getTitleList();
             ListSelectDialog.<String>newInstance()
                     .setData(options,item->item)
                     .setOnItemClickListener((item,position)->{
                         binding.etProductState.setText(item);
+                        selectedStateCode=ProductStateDict.getCodeByTitle(item);
                     }).show(getSupportFragmentManager(),"");
         },etProductState);
 
@@ -107,28 +115,13 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 
             showLoading("保存中");
 
-            addProductPresenter.saveProduct(productName, price,dateStr,1);
+            addProductPresenter.saveProduct(selectedIconCode,productName, price,dateStr,1,selectedStateCode);
 
         },btnSubmitProduct);
 
         setClick(v->{
-            ProductIconBean item01=new ProductIconBean("键盘",R.drawable.pic_keyboard);
-            ProductIconBean item02=new ProductIconBean("相机",R.drawable.pic_camera);
-            ProductIconBean item03=new ProductIconBean("手柄",R.drawable.pic_controller);
-            ProductIconBean item04=new ProductIconBean("U盘",R.drawable.pic_usb);
-            ProductIconBean item05=new ProductIconBean("鼠标",R.drawable.pic_mouse);
-            ProductIconBean item06=new ProductIconBean("鼠标1",R.drawable.pic_mouse);
-            ProductIconBean item07=new ProductIconBean("鼠标2",R.drawable.pic_mouse);
-            ProductIconBean item08=new ProductIconBean("鼠标3",R.drawable.pic_mouse);
-            ProductIconBean item09=new ProductIconBean("鼠标4",R.drawable.pic_mouse);
-            ProductIconBean item10=new ProductIconBean("鼠标5",R.drawable.pic_mouse);
-            ProductIconBean item11=new ProductIconBean("鼠标6",R.drawable.pic_mouse);
-            ProductIconBean item12=new ProductIconBean("鼠标7",R.drawable.pic_mouse);
-            ProductIconBean item13=new ProductIconBean("鼠标8",R.drawable.pic_mouse);
-            ProductIconBean item14=new ProductIconBean("鼠标9",R.drawable.pic_mouse);
-            ProductIconBean item15=new ProductIconBean("鼠标10",R.drawable.pic_mouse);
-            List<ProductIconBean> menus = Arrays.asList(item01,item02,item03,item04,item05,item06,item07,item08,item09,item10,
-                    item11,item12,item13,item14,item15);
+            // 从 Enum 字典拿数据列表
+            List<ProductIconDict> menus = Arrays.asList(ProductIconDict.values());
 
             GridPanelBottomDialog.newInstance(
                     3, 4, menus,
@@ -140,6 +133,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                         ivProductIcon.setImageResource(data.getIconRes());
                         //清除 pic_set_product_icon
                         binding.ivProductIcon.setBackground(null);
+                        selectedIconCode = data.getCode();
                     }
 
             ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_product_icon");
