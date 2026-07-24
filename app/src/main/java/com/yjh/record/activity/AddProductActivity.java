@@ -1,4 +1,4 @@
-package com.yjh.record.ui.activity;
+package com.yjh.record.activity;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.widget.dialog.bottom.GridPanelBottomDialog;
+import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.databinding.AcAddProductBinding;
@@ -21,9 +21,7 @@ import com.yjh.base.uikit.widget.spinner.DateSpinner;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ConvertUtils;
 import com.yjh.base.utils.util.ToastUtils;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +36,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     private EditText etProductName;
     private EditText etProductPrice;
     private EditText etPurchaseDate;
+    private EditText etProductState;
     private Button btnSubmitProduct;
     private ImageView ivProductIcon;
     private String dateStr;
@@ -59,6 +58,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
         etProductName=findViewById(R.id.et_product_name);
         etProductPrice=findViewById(R.id.et_product_price);
         ivProductIcon=binding.ivProductIcon;
+        etProductState=binding.etProductState;
     }
 
     @SuppressLint("SetTextI18n")
@@ -72,6 +72,15 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
             });
             dateSpinner.show();
         },etPurchaseDate);
+
+        setClick(v->{
+            List<String> options=Arrays.asList("使用中","已损坏","已闲置");
+            ListSelectDialog.<String>newInstance()
+                    .setData(options,item->item)
+                    .setOnItemClickListener((item,position)->{
+                        binding.etProductState.setText(item);
+                    }).show(getSupportFragmentManager(),"");
+        },etProductState);
 
         setClick(v->{
 

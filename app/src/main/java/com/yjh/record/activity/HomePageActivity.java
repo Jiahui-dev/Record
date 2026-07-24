@@ -1,4 +1,4 @@
-package com.yjh.record.ui.activity;
+package com.yjh.record.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +19,9 @@ import com.yjh.record.databinding.AcHomePageBinding;
 import com.yjh.record.databinding.ItemProductBinding;
 import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.LoadProductsPresenter;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
 
 /**
@@ -34,6 +32,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     private TitleBar titleBar;
     private ImageView ivAddProduct;
+    private ImageView ivSetting;
 
     private SimpleAdapter<ProductBean, ItemProductBinding> productAdapter;
 
@@ -69,6 +68,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         super.initView();
         EventBus.getDefault().register(this);
         ivAddProduct = binding.fabAddProduct;
+        ivSetting=binding.ivSetting;
 
         RecyclerView recyclerView = attachRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,6 +87,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     .build(Constant.Router.AddProduct)
                     .navigation(this);
         }, ivAddProduct);
+
+        setClick(v -> {
+            BaseRouter.getInstance()
+                    .build(Constant.Router.Setting)
+                    .navigation(this);
+        }, ivSetting);
     }
 
     @Override
@@ -107,10 +113,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     @Override
     public void onLoadProductsSuccess(List<ProductBean> productList) {
-        // 1. 刷新基类自带的 Adapter 列表数据
         refreshListSuccess(productList);
 
-        // 2. 直接操作局部 View 来改变头部数据
         double totalAmount = 0;
         int totalNumber = 0;
         if (productList != null) {
@@ -146,7 +150,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     @Override
     protected View getTopView() {
-        return binding.tvSlogan;
+        return binding.LinearLayoutSlogan;
     }
 
     @Override

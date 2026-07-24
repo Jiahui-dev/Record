@@ -18,6 +18,7 @@
         android:id="@+id/iv_product_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/pic_set_product_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_bar"
@@ -71,17 +72,42 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:longClickable="false"
+        android:textIsSelectable="false"
         android:hint="请选择购买日期"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_purchase_date" />
+
+    <TextView
+        android:id="@+id/tv_product_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="状态"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_purchase_date" />
+
+    <EditText
+        android:id="@+id/et_product_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:longClickable="false"
+        android:textIsSelectable="false"
+        android:hint="请设置物品状态"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_state" />
 
     <Button
         android:id="@+id/btn_submit_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="添加"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_date"
+        app:layout_constraintTop_toBottomOf="@+id/et_product_state"
         app:layout_constraintStart_toStartOf="parent"/>
 
 

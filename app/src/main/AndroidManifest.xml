@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Base">
 
         <activity
-            android:name=".ui.activity.HomePageActivity"
+            android:name=".activity.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,17 +23,22 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.AddProductActivity"
+            android:name=".activity.AddProductActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".ui.activity.DetailPageProductActivity"
+            android:name=".activity.DetailPageProductActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".activity.SettingActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

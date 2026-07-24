@@ -1,4 +1,4 @@
-package com.yjh.record.ui.activity;
+package com.yjh.record.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,6 @@ import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.databinding.AcDetailPageProductBinding;
 import com.yjh.record.model.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
-
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -58,7 +57,7 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
     protected void initListener() {
         setClick(v->{
             CommonDialog dialog=new CommonDialog();
-            dialog.setTitle("删除物品");
+            dialog.setTitle("确认删除");
             dialog.setContent("确认要删除此物品吗？");
             dialog.setOnConfirmListener(confirm->{
                 deleteProductPresenter.deleteProduct(mProduct);

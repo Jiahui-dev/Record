@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/grey_backGround">
 
-    <!-- 1. 下层：可滚动的列表和 Header 内容 -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="0dp"
@@ -34,15 +33,38 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp">
 
-                    <TextView
-                        android:id="@+id/tv_slogan"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/LinearLayout_slogan"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="阳光正好，复盘也正好"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_slogan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="阳光正好，复盘也正好"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/iv_setting" />
+
+                        <ImageView
+                            android:id="@+id/iv_setting"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/pic_setting"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_slogan" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -50,7 +72,6 @@
                         android:layout_marginTop="12dp"
                         android:orientation="horizontal">
 
-                        <!-- 总资产卡片 -->
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_view_first"
                             android:layout_width="0dp"
@@ -116,6 +137,7 @@
                                     tools:text="9999" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -133,13 +155,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="10dp"
                         android:paddingBottom="32dp">
 
                         <TextView
                             android:id="@+id/tv_list_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="6dp"
                             android:text="资产清单"
                             android:textColor="@color/black"
                             android:textSize="18sp"
@@ -149,7 +172,6 @@
                             android:id="@+id/contentView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
                             android:nestedScrollingEnabled="false" />
 
                     </LinearLayout>
