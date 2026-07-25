@@ -57,7 +57,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     @Override
     public void initView() {
         TitleBar titleBar=findViewById(R.id.title_bar);
-        titleBar.setTitle("添加资产");
+        titleBar.setTitle("添加资产", TitleBar.TitleGravity.LEFT);
         etPurchaseDate=findViewById(R.id.et_purchase_date);
         btnSubmitProduct=findViewById(R.id.btn_submit_product);
         etProductName=findViewById(R.id.et_product_name);

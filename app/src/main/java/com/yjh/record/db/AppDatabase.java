@@ -7,7 +7,7 @@ import com.yjh.base.core.BaseApplication;
 import com.yjh.record.model.bean.CategoryBean;
 import com.yjh.record.model.bean.ProductBean;
 
-@Database(entities = {CategoryBean.class, ProductBean.class}, version = 2, exportSchema = false)
+@Database(entities = {CategoryBean.class, ProductBean.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ProductDao productDao();
 

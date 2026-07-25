@@ -73,6 +73,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         EventBus.getDefault().register(this);
         ivAddProduct = binding.fabAddProduct;
         ivSetting=binding.ivSetting;
+        TitleBar titleBar=binding.titleBar;
+        titleBar.setBackVisible(false);
 
         RecyclerView recyclerView = attachRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
