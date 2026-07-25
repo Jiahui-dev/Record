@@ -16,8 +16,8 @@
 
     <ImageView
         android:id="@+id/iv_product_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/pic_set_product_icon"
         app:layout_constraintStart_toStartOf="parent"

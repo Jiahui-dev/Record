@@ -7,12 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.yjh.base.core.model.event.RefreshEvent;
-import com.yjh.base.uikit.widget.dialog.bottom.GridPanelBottomDialog;
+import com.yjh.base.uikit.widget.dialog.bottom.GridTabBottomDialog;
 import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
 import com.yjh.record.databinding.AcAddProductBinding;
-import com.yjh.record.model.bean.ProductIconBean;
 import com.yjh.record.model.dict.ProductIconDict;
 import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.AddProductPresenter;
@@ -24,6 +23,7 @@ import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ConvertUtils;
 import com.yjh.base.utils.util.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -120,24 +120,52 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
         },btnSubmitProduct);
 
         setClick(v->{
-            // 从 Enum 字典拿数据列表
-            List<ProductIconDict> menus = Arrays.asList(ProductIconDict.values());
+//            // 从 Enum 字典拿数据列表
+//            List<ProductIconDict> menus = Arrays.asList(ProductIconDict.values());
+//
+//            GridPanelBottomDialog.newInstance(
+//                    3, 4, menus,
+//                    (binding, data, position) -> {
+//                        binding.tvItemName.setText(data.getTitle());
+//                        binding.ivItemIcon.setImageResource(data.getIconRes());
+//                    },
+//                    (data, globalPosition) -> {
+//                        ivProductIcon.setImageResource(data.getIconRes());
+//                        //清除 pic_set_product_icon
+//                        binding.ivProductIcon.setBackground(null);
+//                        selectedIconCode = data.getCode();
+//                    }
+//
+//            ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_product_icon");
+            List<GridTabBottomDialog.TabCategory<ProductIconDict>> categories = new ArrayList<>();
+            categories.add(new GridTabBottomDialog.TabCategory<>(
+                    "数码电子",
+                    Arrays.asList(ProductIconDict.CPU,ProductIconDict.CHASSIS,ProductIconDict.GRAPHICS_CARD,
+                            ProductIconDict.MOUSE,ProductIconDict.HEADPHONES_OE,ProductIconDict.DISPLAY,
+                            ProductIconDict.POWER,ProductIconDict.CONTROLLER_01,ProductIconDict.CONTROLLER_02,
+                            ProductIconDict.HEADPHONES_01,ProductIconDict.HEADPHONES_02,ProductIconDict.LAPTOP_01,
+                            ProductIconDict.LAPTOP_02,ProductIconDict.DESKTOP_01,ProductIconDict.DESKTOP_02,
+                            ProductIconDict.FAN,ProductIconDict.HARD_DISK,ProductIconDict.KEYBOARD,ProductIconDict.USB,
+                            ProductIconDict.MOTHERBOARD,ProductIconDict.ROUTER)
+            ));
 
-            GridPanelBottomDialog.newInstance(
-                    3, 4, menus,
+            categories.add(new GridTabBottomDialog.TabCategory<>(
+                    "其他",
+                    Arrays.asList(ProductIconDict.GOODS)
+            ));
+
+            GridTabBottomDialog.newInstance(
+                    6,
+                    categories,
                     (binding, data, position) -> {
                         binding.tvItemName.setText(data.getTitle());
                         binding.ivItemIcon.setImageResource(data.getIconRes());
                     },
                     (data, globalPosition) -> {
                         ivProductIcon.setImageResource(data.getIconRes());
-                        //清除 pic_set_product_icon
-                        binding.ivProductIcon.setBackground(null);
                         selectedIconCode = data.getCode();
                     }
-
-            ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_product_icon");
-
+            ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_icon");
         },ivProductIcon);
     }
 
