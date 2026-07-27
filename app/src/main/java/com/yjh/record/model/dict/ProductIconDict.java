@@ -13,7 +13,7 @@ import java.util.List;
  */
 public enum ProductIconDict {
 
-    GOODS("GOODS","物品",R.drawable.pic_goods),
+    //数码产品
     GRAPHICS_CARD("GRAPHICS_CARD","显卡",R.drawable.pic_graphics_card),
     MOUSE("MOUSE", "鼠标", R.drawable.pic_mouse),
     CHASSIS("CHASSIS","机箱",R.drawable.pic_chassis),
@@ -34,7 +34,27 @@ public enum ProductIconDict {
     KEYBOARD("KEYBOARD","键盘",R.drawable.pic_keyboard),
     USB("USB","USB",R.drawable.pic_usb),
     ROUTER("ROUTER","路由器",R.drawable.pic_router),
-    MOTHERBOARD("MOTHERBOARD","主板",R.drawable.pic_motherboard);
+    MOTHERBOARD("MOTHERBOARD","主板",R.drawable.pic_motherboard),
+    VR_01("VR_01","VR眼镜",R.drawable.pic_vr_01),
+    VR_02("VR_02","VR眼镜",R.drawable.pic_vr_02),
+
+    //生活用品
+    BROADBAND("BROADBAND","宽带",R.drawable.pic_broadband),
+    TOILETRIES("TOILETRIES","洗漱用品",R.drawable.pic_toiletries),
+    ELECTRIC_KETTLE("ELECTRIC_KETTLE","电热水壶",R.drawable.pic_electric_kettle),
+
+    //家用电器
+    AIR_CONDITIONER("AIR_CONDITIONER","空调",R.drawable.pic_air_conditioner),
+    FRIDGE("FRIDGE","冰箱",R.drawable.pic_fridge),
+    TELEVISION("TELEVISION","电视机",R.drawable.pic_television),
+    WASHING_MACHINE("WASHING_MACHINE","洗衣机",R.drawable.pic_washing_machine),
+    HEATING("HEATING","暖气",R.drawable.pic_heating),
+
+    //车品出行
+    BICYCLE("BICYCLE","自行车",R.drawable.pic_bicycle),
+
+    //其他
+    GOODS("GOODS","物品",R.drawable.pic_goods);
 
     private final String code;
     private final String title;

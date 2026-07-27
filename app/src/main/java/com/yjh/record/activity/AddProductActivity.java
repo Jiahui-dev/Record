@@ -139,14 +139,30 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 //            ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_product_icon");
             List<GridTabBottomDialog.TabCategory<ProductIconDict>> categories = new ArrayList<>();
             categories.add(new GridTabBottomDialog.TabCategory<>(
-                    "数码电子",
+                    "数码产品",
                     Arrays.asList(ProductIconDict.CPU,ProductIconDict.CHASSIS,ProductIconDict.GRAPHICS_CARD,
                             ProductIconDict.MOUSE,ProductIconDict.HEADPHONES_OE,ProductIconDict.DISPLAY,
                             ProductIconDict.POWER,ProductIconDict.CONTROLLER_01,ProductIconDict.CONTROLLER_02,
                             ProductIconDict.HEADPHONES_01,ProductIconDict.HEADPHONES_02,ProductIconDict.LAPTOP_01,
                             ProductIconDict.LAPTOP_02,ProductIconDict.DESKTOP_01,ProductIconDict.DESKTOP_02,
                             ProductIconDict.FAN,ProductIconDict.HARD_DISK,ProductIconDict.KEYBOARD,ProductIconDict.USB,
-                            ProductIconDict.MOTHERBOARD,ProductIconDict.ROUTER)
+                            ProductIconDict.MOTHERBOARD,ProductIconDict.ROUTER,ProductIconDict.VR_01,ProductIconDict.VR_02)
+            ));
+
+            categories.add(new GridTabBottomDialog.TabCategory<>(
+                    "生活用品",
+                    Arrays.asList(ProductIconDict.TOILETRIES,ProductIconDict.BROADBAND,ProductIconDict.ELECTRIC_KETTLE)
+            ));
+
+            categories.add(new GridTabBottomDialog.TabCategory<>(
+                    "家用电器",
+                    Arrays.asList(ProductIconDict.TELEVISION,ProductIconDict.FRIDGE,ProductIconDict.WASHING_MACHINE,
+                            ProductIconDict.AIR_CONDITIONER,ProductIconDict.HEATING)
+            ));
+
+            categories.add(new GridTabBottomDialog.TabCategory<>(
+                    "车品出行",
+                    Arrays.asList(ProductIconDict.BICYCLE)
             ));
 
             categories.add(new GridTabBottomDialog.TabCategory<>(

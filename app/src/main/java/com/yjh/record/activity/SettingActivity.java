@@ -33,4 +33,9 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
     protected void initData() {
         super.initData();
     }
+
+    @Override
+    protected int getStatusBarColor() {
+        return R.color.white;
+    }
 }
