@@ -15,4 +15,5 @@
     <color name="text_color6">#666666</color>
     <color name="text_color3">#333333</color>
     <color name="color_theme_yellow">#ffde2c</color>
+    <color name="green_product_state">#2b9e69</color>
 </resources>

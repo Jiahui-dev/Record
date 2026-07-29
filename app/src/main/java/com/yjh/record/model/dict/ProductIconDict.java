@@ -51,7 +51,11 @@ public enum ProductIconDict {
     HEATING("HEATING","暖气",R.drawable.pic_heating),
 
     //车品出行
-    BICYCLE("BICYCLE","自行车",R.drawable.pic_bicycle),
+    BICYCLE_01("BICYCLE","自行车",R.drawable.pic_bicycle_01),
+    BICYCLE_02("BICYCLE","自行车",R.drawable.pic_bicycle_02),
+    BICYCLE_03("BICYCLE","自行车",R.drawable.pic_bicycle_03),
+    ELECTRIC_VEHICLE("ELECTRIC_VEHICLE","电动车",R.drawable.pic_electric_vehicle),
+    MOTORCYCLE("MOTORCYCLE","摩托车",R.drawable.pic_motorcycle),
 
     //其他
     GOODS("GOODS","物品",R.drawable.pic_goods);

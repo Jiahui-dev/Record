@@ -11,8 +11,8 @@ public enum ProductStateDict {
     IN_USE("IN_USE", "使用中"),
     IDLE("IDLE", "闲置中"),
     DISPOSED("DISPOSED", "已变卖"),
-    DAMAGED("DAMAGED", "损坏"),
-    LOST("LOST", "丢失");
+    DAMAGED("DAMAGED", "已损坏"),
+    LOST("LOST", "已丢失");
 
     private final String code;
     private final String title;

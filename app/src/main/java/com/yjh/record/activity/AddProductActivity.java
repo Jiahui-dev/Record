@@ -162,7 +162,8 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 
             categories.add(new GridTabBottomDialog.TabCategory<>(
                     "车品出行",
-                    Arrays.asList(ProductIconDict.BICYCLE)
+                    Arrays.asList(ProductIconDict.BICYCLE_01,ProductIconDict.BICYCLE_02,ProductIconDict.BICYCLE_03,
+                            ProductIconDict.ELECTRIC_VEHICLE, ProductIconDict.MOTORCYCLE)
             ));
 
             categories.add(new GridTabBottomDialog.TabCategory<>(

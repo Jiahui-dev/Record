@@ -52,6 +52,13 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     binding.tvPurchaseDate.setText(data.getPurchaseDate());
                     binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
                     binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
+                    switch (ProductStateDict.getTitleByCode(data.getStateCode())){
+                        case "使用中":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
+                        case "闲置中":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
+                        case "已变卖":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
+                        case "已损坏":binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);break;
+                        case "已丢失":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
+                    }
                 }
         );
 

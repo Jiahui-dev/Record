@@ -45,6 +45,7 @@
             android:text="状态"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="6dp"
             app:layout_constraintStart_toEndOf="@id/tv_product_name"
             app:layout_constraintTop_toTopOf="@id/iv_product_picture"
             app:layout_constraintEnd_toEndOf="parent"/>
