@@ -16,4 +16,7 @@
     <color name="text_color3">#333333</color>
     <color name="color_theme_yellow">#ffde2c</color>
     <color name="green_product_state">#2b9e69</color>
+    <color name="red_product_state">#dd444e</color>
+    <color name="brown_product_state">#cf7c41</color>
+    <color name="gray_product_state">#6a7381</color>
 </resources>

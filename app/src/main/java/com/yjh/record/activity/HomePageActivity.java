@@ -1,10 +1,14 @@
 package com.yjh.record.activity;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.core.router.BaseRouter;
@@ -21,9 +25,11 @@ import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.model.dict.ProductIconDict;
 import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.LoadProductsPresenter;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 /**
@@ -52,13 +58,29 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     binding.tvPurchaseDate.setText(data.getPurchaseDate());
                     binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
                     binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
-                    switch (ProductStateDict.getTitleByCode(data.getStateCode())){
-                        case "使用中":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
-                        case "闲置中":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
-                        case "已变卖":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
-                        case "已损坏":binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);break;
-                        case "已丢失":binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);break;
+                    int textColor=R.color.green_product_state;
+                    switch (ProductStateDict.getTitleByCode(data.getStateCode())) {
+                        case "使用中":
+                            textColor=R.color.green_product_state;
+                            binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
+                            break;
+                        case "闲置中":
+                            textColor=R.color.brown_product_state;
+                            binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
+                            break;
+                        case "已损坏":
+                            textColor=R.color.red_product_state;
+                            binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
+                            break;
+                        case "已变卖":
+                        case "已丢失":
+                            textColor=R.color.gray_product_state;
+                            binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
+                            break;
                     }
+                    binding.tvProductState.setTextColor(
+                            ContextCompat.getColor(binding.getRoot().getContext(), textColor)
+                    );
                 }
         );
 
@@ -79,13 +101,22 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         super.initView();
         EventBus.getDefault().register(this);
         ivAddProduct = binding.fabAddProduct;
-        ivSetting=binding.ivSetting;
-        TitleBar titleBar=binding.titleBar;
+        ivSetting = binding.ivSetting;
+        TitleBar titleBar = binding.titleBar;
         titleBar.setBackVisible(false);
+
+        View rootLayout = findViewById(R.id.rootLayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setExitFadeDuration(3000);
+        animationDrawable.start();
 
         RecyclerView recyclerView = attachRecyclerView();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // 禁用 RecyclerView 自身滑动，把它完全交给外层的 NestedScrollView 统一滚动
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(productAdapter);
+
     }
 
     @Override
@@ -121,7 +152,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     @Override
     protected int getStatusBarColor() {
-        return R.color.grey_backGround;
+        return android.R.color.transparent;
     }
 
     @Override
@@ -172,7 +203,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshEvent(RefreshEvent event){
+    public void onRefreshEvent(RefreshEvent event) {
         onRefresh();
     }
 
