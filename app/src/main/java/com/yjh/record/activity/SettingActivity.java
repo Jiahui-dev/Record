@@ -44,7 +44,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
     @Override
     protected void initListener() {
         setClick(v->{
-            ToastUtils.show(this,"点击了cl_01");
+            ToastUtils.showShort("点击了cl_01");
         },cl_01);
     }
 

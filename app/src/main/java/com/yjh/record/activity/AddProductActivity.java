@@ -97,19 +97,19 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
             double price = ConvertUtils.toDouble(productPrice);
 
             if (productName.isEmpty()) {
-                ToastUtils.show(this,"商品名称不能为空");
+                ToastUtils.showShort("商品名称不能为空");
                 return;
             }
             if (productPrice.isEmpty()) {
-                ToastUtils.show(this,"商品价格不能为空");
+                ToastUtils.showShort("商品价格不能为空");
                 return;
             }
             if (price < 0) {
-                ToastUtils.show(this, "请输入正确的价格数字");
+                ToastUtils.showShort( "请输入正确的价格数字");
                 return;
             }
             if (dateStr == null || dateStr.isEmpty()) {
-                ToastUtils.show(this,"购买日期不能为空");
+                ToastUtils.showShort("购买日期不能为空");
                 return;
             }
 
@@ -204,7 +204,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     @Override
     public void onSaveProductSuccess() {
         hideLoading();
-        ToastUtils.show(this,"添加商品成功");
+        ToastUtils.showShort("添加商品成功");
         EventBus.getDefault().post(new RefreshEvent());
         finish();
     }
@@ -212,6 +212,6 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     @Override
     public void onSaveProductFailed(String errorMsg) {
         hideLoading();
-        ToastUtils.show(this,"添加商品失败");
+        ToastUtils.showShort("添加商品失败");
     }
 }

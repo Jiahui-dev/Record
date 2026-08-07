@@ -1,5 +1,6 @@
 package com.yjh.record.activity;
 
+import android.Manifest;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,11 @@ import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.activity.BaseRecyclerActivity;
 import com.yjh.base.uikit.adapter.SimpleAdapter;
-import com.yjh.base.uikit.controller.IRefreshListener;
+import com.yjh.base.uikit.controller.PermissionController;
+import com.yjh.base.uikit.listener.IRefreshListener;
+import com.yjh.base.uikit.controller.PerformanceTestingController;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
+import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
 import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;
@@ -30,6 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,23 +63,23 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     binding.tvPurchaseDate.setText(data.getPurchaseDate());
                     binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
                     binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
-                    int textColor=R.color.green_product_state;
+                    int textColor = R.color.green_product_state;
                     switch (ProductStateDict.getTitleByCode(data.getStateCode())) {
                         case "使用中":
-                            textColor=R.color.green_product_state;
+                            textColor = R.color.green_product_state;
                             binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
                             break;
                         case "闲置中":
-                            textColor=R.color.brown_product_state;
+                            textColor = R.color.brown_product_state;
                             binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
                             break;
                         case "已损坏":
-                            textColor=R.color.red_product_state;
+                            textColor = R.color.red_product_state;
                             binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
                             break;
                         case "已变卖":
                         case "已丢失":
-                            textColor=R.color.gray_product_state;
+                            textColor = R.color.gray_product_state;
                             binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
                             break;
                     }
@@ -102,8 +107,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         EventBus.getDefault().register(this);
         ivAddProduct = binding.fabAddProduct;
         ivSetting = binding.ivSetting;
-        TitleBar titleBar = binding.titleBar;
+        titleBar = binding.titleBar;
         titleBar.setBackVisible(false);
+        List<String> hints = new ArrayList<>();
+        hints.add("搜索");
+        titleBar.setSearchHints(hints);
+        titleBar.startRoll();
 
         View rootLayout = findViewById(R.id.rootLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
@@ -137,6 +146,28 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
                     .build(Constant.Router.Setting)
                     .navigation(this);
         }, ivSetting);
+
+        setClick(v -> {
+            PermissionController permissionController=getController(PermissionController.class);
+            if (permissionController == null) return;
+            String[] permissions = new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            };
+            permissionController.request(permissions, new PermissionController.OnPermissionCallback() {
+                @Override
+                public void onGranted() {
+                    // 权限全通！安心打开相机或扫码
+                    ToastUtils.showShort("权限已授予，打开相机！");
+                }
+
+                @Override
+                public void onDenied(List<String> deniedPermissions) {
+                    // 提示用户被拒绝的权限
+                    ToastUtils.showShort("被拒绝的权限: " + deniedPermissions.toString());
+                }
+            });
+        }, titleBar);
     }
 
     @Override
@@ -153,6 +184,12 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     protected int getStatusBarColor() {
         return android.R.color.transparent;
+    }
+
+    @Override
+    protected void onRegisterControllers() {
+        registerController(PerformanceTestingController.class, new PerformanceTestingController(getClass().getSimpleName()));
+        registerController(PermissionController.class,new PermissionController(this));
     }
 
     @Override

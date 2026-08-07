@@ -81,13 +81,13 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
 
     @Override
     public void onDeleteProductSuccess() {
-        ToastUtils.show(this,"已删除");
+        ToastUtils.showShort("已删除");
         EventBus.getDefault().post(new RefreshEvent());
         finish();
     }
 
     @Override
     public void onDeleteProductFailed(String errorMsg) {
-        ToastUtils.show(this,errorMsg);
+        ToastUtils.showShort(errorMsg);
     }
 }
