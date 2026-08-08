@@ -3,8 +3,10 @@ package com.yjh.record.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
+import com.yjh.base.core.model.event.EventHub;
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.activity.BaseActivity;
 import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
@@ -15,7 +17,6 @@ import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.databinding.AcDetailPageProductBinding;
 import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by jiahui on 2026/7/23
@@ -38,35 +39,30 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
 
     @Override
     protected void initView() {
-        titleBar=binding.titleBar;
+        titleBar = binding.titleBar;
         titleBar.setTitle("资产详情");
-        ivDeleteProduct=new ImageView(this);
+        ivDeleteProduct = new ImageView(this);
         ivDeleteProduct.setImageResource(R.drawable.pic_delete);
-        titleBar.addRightView(ivDeleteProduct,20,20);
+        titleBar.addRightView(ivDeleteProduct, 20, 20);
         binding.tvProductName.setText(mProduct.getName());
         binding.tvProductPrice.setText(String.valueOf(mProduct.getPrice()));
         binding.tvPurchaseDate.setText(mProduct.getPurchaseDate());
     }
 
     @Override
-    protected void initData() {
-        super.initData();
-    }
-
-    @Override
     protected void initListener() {
-        setClick(v->{
-            CommonDialog dialog=new CommonDialog();
+        setClick(v -> {
+            CommonDialog dialog = new CommonDialog();
             dialog.setTitle("确认删除");
             dialog.setContent("确认要删除此物品吗？");
-            dialog.setOnConfirmListener(confirm->{
+            dialog.setOnConfirmListener(confirm -> {
                 deleteProductPresenter.deleteProduct(mProduct);
             });
-            dialog.setOnCancelListener(cancel->{
+            dialog.setOnCancelListener(cancel -> {
                 dialog.dismiss();
             });
-            dialog.show(getSupportFragmentManager(),"DetailPageDeleteProductDialog");
-        },ivDeleteProduct);
+            dialog.show(getSupportFragmentManager(), "DetailPageDeleteProductDialog");
+        }, ivDeleteProduct);
     }
 
     @Override
@@ -82,7 +78,7 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
     @Override
     public void onDeleteProductSuccess() {
         ToastUtils.showShort("已删除");
-        EventBus.getDefault().post(new RefreshEvent());
+        EventHub.post(new RefreshEvent());
         finish();
     }
 

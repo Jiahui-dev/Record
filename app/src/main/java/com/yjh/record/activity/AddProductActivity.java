@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.yjh.base.core.model.event.EventHub;
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.widget.dialog.bottom.GridTabBottomDialog;
 import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
@@ -22,7 +24,7 @@ import com.yjh.base.uikit.widget.spinner.DateSpinner;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ConvertUtils;
 import com.yjh.base.utils.util.ToastUtils;
-import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +46,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     private String dateStr;
 
     private String selectedIconCode = ProductIconDict.GOODS.getCode();
-    private String selectedStateCode= ProductStateDict.IN_USE.getCode();
+    private String selectedStateCode = ProductStateDict.IN_USE.getCode();
 
     @InjectPresenter
     AddProductPresenter addProductPresenter;
@@ -56,44 +58,44 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 
     @Override
     public void initView() {
-        TitleBar titleBar=findViewById(R.id.title_bar);
+        TitleBar titleBar = findViewById(R.id.title_bar);
         titleBar.setTitle("添加资产", TitleBar.TitleGravity.LEFT);
-        etPurchaseDate=binding.etPurchaseDate;
-        btnSubmitProduct=binding.btnSubmitProduct;
-        etProductName=binding.etProductName;
-        etProductPrice=binding.etProductPrice;
-        ivProductIcon=binding.ivProductIcon;
+        etPurchaseDate = binding.etPurchaseDate;
+        btnSubmitProduct = binding.btnSubmitProduct;
+        etProductName = binding.etProductName;
+        etProductPrice = binding.etProductPrice;
+        ivProductIcon = binding.ivProductIcon;
         ivProductIcon.setImageResource(R.drawable.pic_goods);
-        etProductState=binding.etProductState;
+        etProductState = binding.etProductState;
         etProductState.setText(ProductStateDict.getTitleByCode(selectedStateCode));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void initListener() {
-        setClick(v->{
-            DateSpinner dateSpinner=new DateSpinner(this,3);
-            dateSpinner.setOnSelectedListener((year,month,day)->{
-                etPurchaseDate.setText(year+"年"+month+"月"+day+"日");
-                dateStr=year+"."+month+"."+day;
+        setClick(v -> {
+            DateSpinner dateSpinner = new DateSpinner(this, 3);
+            dateSpinner.setOnSelectedListener((year, month, day) -> {
+                etPurchaseDate.setText(year + "年" + month + "月" + day + "日");
+                dateStr = year + "." + month + "." + day;
             });
             dateSpinner.show();
-        },etPurchaseDate);
+        }, etPurchaseDate);
 
-        setClick(v->{
-            List<String> options=ProductStateDict.getTitleList();
+        setClick(v -> {
+            List<String> options = ProductStateDict.getTitleList();
             ListSelectDialog.<String>newInstance()
-                    .setData(options,item->item)
-                    .setOnItemClickListener((item,position)->{
+                    .setData(options, item -> item)
+                    .setOnItemClickListener((item, position) -> {
                         binding.etProductState.setText(item);
-                        selectedStateCode=ProductStateDict.getCodeByTitle(item);
-                    }).show(getSupportFragmentManager(),"");
-        },etProductState);
+                        selectedStateCode = ProductStateDict.getCodeByTitle(item);
+                    }).show(getSupportFragmentManager(), "");
+        }, etProductState);
 
-        setClick(v->{
+        setClick(v -> {
 
             String productName = etProductName.getText().toString().trim();
-            String productPrice=etProductPrice.getText().toString().trim();
+            String productPrice = etProductPrice.getText().toString().trim();
             double price = ConvertUtils.toDouble(productPrice);
 
             if (productName.isEmpty()) {
@@ -105,7 +107,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                 return;
             }
             if (price < 0) {
-                ToastUtils.showShort( "请输入正确的价格数字");
+                ToastUtils.showShort("请输入正确的价格数字");
                 return;
             }
             if (dateStr == null || dateStr.isEmpty()) {
@@ -115,11 +117,11 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 
             showLoading("保存中");
 
-            addProductPresenter.saveProduct(selectedIconCode,productName, price,dateStr,1,selectedStateCode);
+            addProductPresenter.saveProduct(selectedIconCode, productName, price, dateStr, 1, selectedStateCode);
 
-        },btnSubmitProduct);
+        }, btnSubmitProduct);
 
-        setClick(v->{
+        setClick(v -> {
 //            // 从 Enum 字典拿数据列表
 //            List<ProductIconDict> menus = Arrays.asList(ProductIconDict.values());
 //
@@ -140,29 +142,29 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
             List<GridTabBottomDialog.TabCategory<ProductIconDict>> categories = new ArrayList<>();
             categories.add(new GridTabBottomDialog.TabCategory<>(
                     "数码产品",
-                    Arrays.asList(ProductIconDict.CPU,ProductIconDict.CHASSIS,ProductIconDict.GRAPHICS_CARD,
-                            ProductIconDict.MOUSE,ProductIconDict.HEADPHONES_OE,ProductIconDict.DISPLAY,
-                            ProductIconDict.POWER,ProductIconDict.CONTROLLER_01,ProductIconDict.CONTROLLER_02,
-                            ProductIconDict.HEADPHONES_01,ProductIconDict.HEADPHONES_02,ProductIconDict.LAPTOP_01,
-                            ProductIconDict.LAPTOP_02,ProductIconDict.DESKTOP_01,ProductIconDict.DESKTOP_02,
-                            ProductIconDict.FAN,ProductIconDict.HARD_DISK,ProductIconDict.KEYBOARD,ProductIconDict.USB,
-                            ProductIconDict.MOTHERBOARD,ProductIconDict.ROUTER,ProductIconDict.VR_01,ProductIconDict.VR_02)
+                    Arrays.asList(ProductIconDict.CPU, ProductIconDict.CHASSIS, ProductIconDict.GRAPHICS_CARD,
+                            ProductIconDict.MOUSE, ProductIconDict.HEADPHONES_OE, ProductIconDict.DISPLAY,
+                            ProductIconDict.POWER, ProductIconDict.CONTROLLER_01, ProductIconDict.CONTROLLER_02,
+                            ProductIconDict.HEADPHONES_01, ProductIconDict.HEADPHONES_02, ProductIconDict.LAPTOP_01,
+                            ProductIconDict.LAPTOP_02, ProductIconDict.DESKTOP_01, ProductIconDict.DESKTOP_02,
+                            ProductIconDict.FAN, ProductIconDict.HARD_DISK, ProductIconDict.KEYBOARD, ProductIconDict.USB,
+                            ProductIconDict.MOTHERBOARD, ProductIconDict.ROUTER, ProductIconDict.VR_01, ProductIconDict.VR_02)
             ));
 
             categories.add(new GridTabBottomDialog.TabCategory<>(
                     "生活用品",
-                    Arrays.asList(ProductIconDict.TOILETRIES,ProductIconDict.BROADBAND,ProductIconDict.ELECTRIC_KETTLE)
+                    Arrays.asList(ProductIconDict.TOILETRIES, ProductIconDict.BROADBAND, ProductIconDict.ELECTRIC_KETTLE)
             ));
 
             categories.add(new GridTabBottomDialog.TabCategory<>(
                     "家用电器",
-                    Arrays.asList(ProductIconDict.TELEVISION,ProductIconDict.FRIDGE,ProductIconDict.WASHING_MACHINE,
-                            ProductIconDict.AIR_CONDITIONER,ProductIconDict.HEATING)
+                    Arrays.asList(ProductIconDict.TELEVISION, ProductIconDict.FRIDGE, ProductIconDict.WASHING_MACHINE,
+                            ProductIconDict.AIR_CONDITIONER, ProductIconDict.HEATING)
             ));
 
             categories.add(new GridTabBottomDialog.TabCategory<>(
                     "车品出行",
-                    Arrays.asList(ProductIconDict.BICYCLE_01,ProductIconDict.BICYCLE_02,ProductIconDict.BICYCLE_03,
+                    Arrays.asList(ProductIconDict.BICYCLE_01, ProductIconDict.BICYCLE_02, ProductIconDict.BICYCLE_03,
                             ProductIconDict.ELECTRIC_VEHICLE, ProductIconDict.MOTORCYCLE)
             ));
 
@@ -183,7 +185,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                         selectedIconCode = data.getCode();
                     }
             ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_icon");
-        },ivProductIcon);
+        }, ivProductIcon);
     }
 
     @Override
@@ -205,7 +207,7 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     public void onSaveProductSuccess() {
         hideLoading();
         ToastUtils.showShort("添加商品成功");
-        EventBus.getDefault().post(new RefreshEvent());
+        EventHub.post(new RefreshEvent());
         finish();
     }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjh.base.core.annotation.InjectPresenter;
+import com.yjh.base.core.model.event.EventHub;
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.activity.BaseRecyclerActivity;
@@ -29,10 +30,6 @@ import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.model.dict.ProductIconDict;
 import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.LoadProductsPresenter;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,9 +99,30 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
-    public void initView() {
+    protected void onRegisterControllers() {
+        registerController(PerformanceTestingController.class, new PerformanceTestingController(getClass().getSimpleName()));
+        registerController(PermissionController.class, new PermissionController(this));
+        registerController(EventHub.Controller.class, new EventHub.Controller());
+    }
+
+    @Override
+    protected AcHomePageBinding initBinding(LayoutInflater inflater) {
+        return AcHomePageBinding.inflate(inflater);
+    }
+
+    @Override
+    protected RecyclerView attachRecyclerView() {
+        return binding.contentView;
+    }
+
+    @Override
+    protected View attachRefreshLayout() {
+        return binding.swipeRefresh;
+    }
+
+    @Override
+    protected void initView() {
         super.initView();
-        EventBus.getDefault().register(this);
         ivAddProduct = binding.fabAddProduct;
         ivSetting = binding.ivSetting;
         titleBar = binding.titleBar;
@@ -129,12 +147,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
-    public void initData() {
-        loadProductsPresenter.loadProducts();
-    }
-
-    @Override
-    public void initListener() {
+    protected void initListener() {
         setClick(v -> {
             BaseRouter.getInstance()
                     .build(Constant.Router.AddProduct)
@@ -148,7 +161,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         }, ivSetting);
 
         setClick(v -> {
-            PermissionController permissionController=getController(PermissionController.class);
+            PermissionController permissionController = getController(PermissionController.class);
             if (permissionController == null) return;
             String[] permissions = new String[]{
                     Manifest.permission.CAMERA,
@@ -171,9 +184,18 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    protected void initEvent() {
+        EventHub.Controller hub = getController(EventHub.Controller.class);
+        if (hub != null) {
+            hub.observe(RefreshEvent.class, event -> {
+                onRefresh();
+            });
+        }
+    }
+
+    @Override
+    public void initData() {
+        loadProductsPresenter.loadProducts();
     }
 
     @Override
@@ -184,12 +206,6 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     protected int getStatusBarColor() {
         return android.R.color.transparent;
-    }
-
-    @Override
-    protected void onRegisterControllers() {
-        registerController(PerformanceTestingController.class, new PerformanceTestingController(getClass().getSimpleName()));
-        registerController(PermissionController.class,new PermissionController(this));
     }
 
     @Override
@@ -220,28 +236,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     }
 
     @Override
-    protected RecyclerView attachRecyclerView() {
-        return binding.contentView;
-    }
-
-    @Override
-    protected View attachRefreshLayout() {
-        return binding.swipeRefresh;
-    }
-
-    @Override
     protected View getTopView() {
         return binding.LinearLayoutSlogan;
-    }
-
-    @Override
-    protected AcHomePageBinding initBinding(LayoutInflater inflater) {
-        return AcHomePageBinding.inflate(inflater);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshEvent(RefreshEvent event) {
-        onRefresh();
     }
 
     @Override
