@@ -19,7 +19,7 @@ import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.presenter.DeleteProductPresenter;
 
 /**
- * Created by jiahui on 2026/7/23
+ * Created by jiahui on 2026/07/23
  */
 public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductBinding> implements DeleteProductContract.View {
 
