@@ -210,7 +210,7 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
 
     @Override
     public void onLoadProductsSuccess(List<ProductBean> productList) {
-        refreshListSuccess(productList);
+        refreshListSuccess(productList, false);
 
         double totalAmount = 0;
         int totalNumber = 0;
@@ -228,11 +228,6 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     public void onLoadProductsFailed(String errorMsg) {
         refreshListFailed(errorMsg);
-    }
-
-    @Override
-    protected boolean isSupportLoadMore() {
-        return false;
     }
 
     @Override
