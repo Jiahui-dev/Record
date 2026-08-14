@@ -31,9 +31,9 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
     @Override
     protected void initView() {
         super.initView();
-        TitleBar titleBar=binding.titleBar;
-        titleBar.setTitle("设置",TitleBar.TitleGravity.LEFT);
-        cl_01=binding.cl01;
+        TitleBar titleBar = binding.titleBar;
+        titleBar.setTitle("设置", TitleBar.TitleGravity.LEFT);
+        cl_01 = binding.cl01;
     }
 
     @Override
@@ -43,9 +43,9 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
 
     @Override
     protected void initListener() {
-        setClick(v->{
+        setClick(v -> {
             ToastUtils.showShort("点击了cl_01");
-        },cl_01);
+        }, cl_01);
     }
 
     @Override

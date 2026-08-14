@@ -28,23 +28,22 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.AddProductActivity"
+        <activity android:name=".activity.AddProductActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
 
-        <activity
-            android:name=".activity.DetailPageProductActivity"
+        <activity android:name=".activity.DetailPageProductActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
 
-        <activity
-            android:name=".activity.SettingActivity"
+        <activity android:name=".activity.SettingActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
+
+        <activity android:name=".activity.HomePageSearchActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

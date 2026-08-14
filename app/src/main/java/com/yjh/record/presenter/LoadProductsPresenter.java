@@ -56,4 +56,29 @@ public class LoadProductsPresenter extends BasePresenter<LoadProductsContract.Vi
             }
         }).start();
     }
+
+    @Override
+    public void loadProductsByName(String name) {
+        new Thread(() -> {
+            try {
+                // 如果 name 为空，可根据业务需求选择查询全部或直接使用 name
+                List<ProductBean> productList = AppDatabase.getInstance()
+                        .productDao()
+                        .getProductsByName(name == null ? "" : name);
+
+                mainHandler.post(() -> {
+                    if (getView() != null) {
+                        getView().onLoadProductsSuccess(productList);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                mainHandler.post(() -> {
+                    if (getView() != null) {
+                        getView().onLoadProductsFailed(e.getMessage());
+                    }
+                });
+            }
+        }).start();
+    }
 }

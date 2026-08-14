@@ -12,5 +12,6 @@ public interface LoadProductsContract {
     interface Presenter{
         void loadProducts();
         void loadProductsByCategory(int categoryId);
+        void loadProductsByName(String name);
     }
 }

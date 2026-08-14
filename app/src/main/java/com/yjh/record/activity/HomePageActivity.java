@@ -161,25 +161,9 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         }, ivSetting);
 
         setClick(v -> {
-            PermissionController permissionController = getController(PermissionController.class);
-            if (permissionController == null) return;
-            String[] permissions = new String[]{
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            };
-            permissionController.request(permissions, new PermissionController.OnPermissionCallback() {
-                @Override
-                public void onGranted() {
-                    // 权限全通！安心打开相机或扫码
-                    ToastUtils.showShort("权限已授予，打开相机！");
-                }
-
-                @Override
-                public void onDenied(List<String> deniedPermissions) {
-                    // 提示用户被拒绝的权限
-                    ToastUtils.showShort("被拒绝的权限: " + deniedPermissions.toString());
-                }
-            });
+            BaseRouter.getInstance()
+                    .build(Constant.Router.HomePageSearch)
+                    .navigation(this);
         }, titleBar);
     }
 

@@ -22,4 +22,9 @@ public interface ProductDao extends BaseDao<ProductBean> {
     @Query("SELECT * FROM products ORDER BY id DESC")
     List<ProductBean> getAll();
 
+    // 根据产品名称进行模糊查询
+    @Query("SELECT * FROM products WHERE name LIKE '%' || :name || '%' ORDER BY id DESC")
+    List<ProductBean> getProductsByName(String name);
+
+
 }

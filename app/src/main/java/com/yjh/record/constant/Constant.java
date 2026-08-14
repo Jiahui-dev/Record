@@ -4,13 +4,15 @@ import com.yjh.record.activity.AddProductActivity;
 import com.yjh.record.activity.DetailPageProductActivity;
 import com.yjh.record.activity.HomePageActivity;
 import com.yjh.base.core.router.IRoutePath;
+import com.yjh.record.activity.HomePageSearchActivity;
 import com.yjh.record.activity.SettingActivity;
 
 public interface Constant {
-    interface Router{
+    interface Router {
         IRoutePath<HomePageActivity> HomePage = () -> HomePageActivity.class;
         IRoutePath<AddProductActivity> AddProduct = () -> AddProductActivity.class;
         IRoutePath<DetailPageProductActivity> DetailPageProduct = () -> DetailPageProductActivity.class;
         IRoutePath<SettingActivity> Setting = () -> SettingActivity.class;
+        IRoutePath<HomePageSearchActivity> HomePageSearch = () -> HomePageSearchActivity.class;
     }
 }
