@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iv_product_picture"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:background="@color/grey_backGround"
             android:src="@drawable/ic_launcher_background"
@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:padding="6dp"
             android:textStyle="bold"
+            android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@id/tv_product_name"
             app:layout_constraintTop_toTopOf="@id/iv_product_picture"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -56,11 +57,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¥1000"
-            android:textSize="20sp"
             android:fontFamily="@font/douyin"
-            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@id/tv_product_name"
             app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@id/tv_product_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name"/>
 
         <TextView
             android:id="@+id/tv_purchase_date"
@@ -69,9 +80,10 @@
             android:layout_marginTop="4dp"
             android:text="2000年12月12日"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tv_product_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_product_price"
-            app:layout_constraintBottom_toBottomOf="@id/iv_product_picture" />
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/douyin"
+            app:layout_constraintStart_toEndOf="@id/tv_point"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

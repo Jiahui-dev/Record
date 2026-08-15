@@ -1,6 +1,6 @@
 package com.yjh.record.activity;
 
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,6 @@ import com.yjh.base.uikit.controller.PermissionController;
 import com.yjh.base.uikit.listener.IRefreshListener;
 import com.yjh.base.uikit.controller.PerformanceTestingController;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
-import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
 import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;
@@ -30,6 +29,7 @@ import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.model.dict.ProductIconDict;
 import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.LoadProductsPresenter;
+import com.yjh.record.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,7 @@ import java.util.List;
 /**
  * Created by youjiahui on 2026/7/18
  */
-public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePageBinding>
-        implements IRefreshListener, LoadProductsContract.View {
+public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePageBinding> implements IRefreshListener, LoadProductsContract.View {
 
     private TitleBar titleBar;
     private ImageView ivAddProduct;
@@ -49,49 +48,41 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @InjectPresenter
     LoadProductsPresenter loadProductsPresenter;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected SimpleAdapter<ProductBean, ItemProductBinding> createAdapter() {
-        productAdapter = new SimpleAdapter<>(
-                this,
-                ItemProductBinding::inflate,
-                (binding, data, position) -> {
-                    binding.tvProductName.setText(data.getName());
-                    binding.tvProductPrice.setText(String.valueOf(data.getPrice()));
-                    binding.tvPurchaseDate.setText(data.getPurchaseDate());
-                    binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
-                    binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
-                    int textColor = R.color.green_product_state;
-                    switch (ProductStateDict.getTitleByCode(data.getStateCode())) {
-                        case "使用中":
-                            textColor = R.color.green_product_state;
-                            binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
-                            break;
-                        case "闲置中":
-                            textColor = R.color.brown_product_state;
-                            binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
-                            break;
-                        case "已损坏":
-                            textColor = R.color.red_product_state;
-                            binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
-                            break;
-                        case "已变卖":
-                        case "已丢失":
-                            textColor = R.color.gray_product_state;
-                            binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
-                            break;
-                    }
-                    binding.tvProductState.setTextColor(
-                            ContextCompat.getColor(binding.getRoot().getContext(), textColor)
-                    );
-                }
-        );
+        productAdapter = new SimpleAdapter<>(this, ItemProductBinding::inflate, (binding, data, position) -> {
+            binding.tvProductName.setText(data.getName());
+            binding.tvProductPrice.setText("¥"+data.getPrice());
+            binding.tvPurchaseDate.setText(DateUtils.getDaysFromPurchaseDate(data.getPurchaseDate())+"天");
+            binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
+            binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
+            int textColor = R.color.green_product_state;
+            switch (ProductStateDict.getTitleByCode(data.getStateCode())) {
+                case "使用中":
+                    textColor = R.color.green_product_state;
+                    binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
+                    break;
+                case "闲置中":
+                    textColor = R.color.brown_product_state;
+                    binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
+                    break;
+                case "已损坏":
+                    textColor = R.color.red_product_state;
+                    binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
+                    break;
+                case "已变卖":
+                case "已丢失":
+                    textColor = R.color.gray_product_state;
+                    binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
+                    break;
+            }
+            binding.tvProductState.setTextColor(ContextCompat.getColor(binding.getRoot().getContext(), textColor));
+        });
 
         productAdapter.setOnItemClickListener((view, viewId, position, data) -> {
             setClick(v -> {
-                BaseRouter.getInstance()
-                        .build(Constant.Router.DetailPageProduct)
-                        .withSerializable("product", data)
-                        .navigation(this);
+                BaseRouter.getInstance().build(Constant.Router.DetailPageProduct).withSerializable("product", data).navigation(this);
             }, view);
         });
 
@@ -149,21 +140,15 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     protected void initListener() {
         setClick(v -> {
-            BaseRouter.getInstance()
-                    .build(Constant.Router.AddProduct)
-                    .navigation(this);
+            BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
         }, ivAddProduct);
 
         setClick(v -> {
-            BaseRouter.getInstance()
-                    .build(Constant.Router.Setting)
-                    .navigation(this);
+            BaseRouter.getInstance().build(Constant.Router.Setting).navigation(this);
         }, ivSetting);
 
         setClick(v -> {
-            BaseRouter.getInstance()
-                    .build(Constant.Router.HomePageSearch)
-                    .navigation(this);
+            BaseRouter.getInstance().build(Constant.Router.HomePageSearch).navigation(this);
         }, titleBar);
     }
 
@@ -205,8 +190,35 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
             totalNumber = productList.size();
         }
 
+        double dailyAverageCost = 0;
+        if (productList != null) {
+            double inUseTotalPrice = 0;
+            long totalDays = 0;
+            int inUseCount = 0;
+
+            for (ProductBean item : productList) {
+                if ("IN_USE".equals(item.getStateCode())) {
+                    inUseTotalPrice += item.getPrice();
+                    long days = DateUtils.getDaysFromPurchaseDate(item.getPurchaseDate());
+                    if (days > 0) {
+                        totalDays += days;
+                        inUseCount++;
+                    }
+                }
+            }
+
+            // 日均成本 = 使用中物品总价 ÷ 平均使用天数
+            if (inUseCount > 0) {
+                long averageDays = totalDays / inUseCount;
+                if (averageDays > 0) {
+                    dailyAverageCost = inUseTotalPrice / averageDays;
+                }
+            }
+        }
+
         binding.tvTotalAmount.setText(String.format("%.2f", totalAmount));
-        binding.tvTotalNumber.setText(String.valueOf(totalNumber));
+        // 显示日均成本（保留两位小数）
+        binding.tvDailyAverageCost.setText(String.format("%.2f", dailyAverageCost));
     }
 
     @Override
