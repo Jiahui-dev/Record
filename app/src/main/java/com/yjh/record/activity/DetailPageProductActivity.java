@@ -1,8 +1,11 @@
 package com.yjh.record.activity;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
@@ -16,7 +19,10 @@ import com.yjh.record.R;
 import com.yjh.record.contract.DeleteProductContract;
 import com.yjh.record.databinding.AcDetailPageProductBinding;
 import com.yjh.record.model.bean.ProductBean;
+import com.yjh.record.model.dict.ProductIconDict;
+import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.DeleteProductPresenter;
+import com.yjh.record.utils.DataUtils;
 
 /**
  * Created by jiahui on 2026/07/23
@@ -37,6 +43,7 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
         return AcDetailPageProductBinding.inflate(inflater);
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void initView() {
         titleBar = binding.titleBar;
@@ -45,8 +52,35 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
         ivDeleteProduct.setImageResource(R.drawable.pic_delete);
         titleBar.addRightView(ivDeleteProduct, 20, 20);
         binding.tvProductName.setText(mProduct.getName());
-        binding.tvProductPrice.setText(String.valueOf(mProduct.getPrice()));
+        binding.tvProductPrice.setText("¥"+ DataUtils.formatNumber(mProduct.getPrice()));
+        binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(mProduct.getIconCode()));
+        binding.tvProductState.setText(ProductStateDict.getTitleByCode(mProduct.getStateCode()));
         binding.tvPurchaseDate.setText(mProduct.getPurchaseDate());
+        binding.tvProductPriceSecond.setText("¥"+ DataUtils.formatNumber(mProduct.getPrice()));
+        binding.tvDailyCost.setText("¥"+ DataUtils.calculateDailyCostFormatted(mProduct.getPurchaseDate(),mProduct.getPrice()));
+        int textColor = R.color.green_product_state;
+        switch (ProductStateDict.getTitleByCode(mProduct.getStateCode())) {
+            case "使用中":
+                textColor = R.color.green_product_state;
+                binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
+                break;
+            case "闲置中":
+                textColor = R.color.brown_product_state;
+                binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
+                break;
+            case "已损坏":
+                textColor = R.color.red_product_state;
+                binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
+                break;
+            case "已变卖":
+            case "已丢失":
+                textColor = R.color.gray_product_state;
+                binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
+                break;
+        }
+        binding.tvProductState.setTextColor(
+                ContextCompat.getColor(binding.getRoot().getContext(), textColor)
+        );
     }
 
     @Override

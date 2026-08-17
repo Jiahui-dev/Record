@@ -29,7 +29,7 @@ import com.yjh.record.model.bean.ProductBean;
 import com.yjh.record.model.dict.ProductIconDict;
 import com.yjh.record.model.dict.ProductStateDict;
 import com.yjh.record.presenter.LoadProductsPresenter;
-import com.yjh.record.utils.DateUtils;
+import com.yjh.record.utils.DataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +53,8 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     protected SimpleAdapter<ProductBean, ItemProductBinding> createAdapter() {
         productAdapter = new SimpleAdapter<>(this, ItemProductBinding::inflate, (binding, data, position) -> {
             binding.tvProductName.setText(data.getName());
-            binding.tvProductPrice.setText("¥"+data.getPrice());
-            binding.tvPurchaseDate.setText(DateUtils.getDaysFromPurchaseDate(data.getPurchaseDate())+"天");
+            binding.tvProductPrice.setText("¥"+ DataUtils.formatNumber(data.getPrice()));
+            binding.tvPurchaseDate.setText(DataUtils.getDaysFromPurchaseDate(data.getPurchaseDate())+"天");
             binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
             binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
             int textColor = R.color.green_product_state;
@@ -177,48 +177,30 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
         return android.R.color.transparent;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onLoadProductsSuccess(List<ProductBean> productList) {
         refreshListSuccess(productList, false);
 
-        double totalAmount = 0;
-        int totalNumber = 0;
+        double totalAmounts = 0;
         if (productList != null) {
             for (ProductBean item : productList) {
-                totalAmount += item.getPrice();
+                totalAmounts += item.getPrice();
             }
-            totalNumber = productList.size();
         }
 
-        double dailyAverageCost = 0;
+        double totalDailyAverageCost = 0;
         if (productList != null) {
-            double inUseTotalPrice = 0;
-            long totalDays = 0;
-            int inUseCount = 0;
-
             for (ProductBean item : productList) {
                 if ("IN_USE".equals(item.getStateCode())) {
-                    inUseTotalPrice += item.getPrice();
-                    long days = DateUtils.getDaysFromPurchaseDate(item.getPurchaseDate());
-                    if (days > 0) {
-                        totalDays += days;
-                        inUseCount++;
-                    }
-                }
-            }
-
-            // 日均成本 = 使用中物品总价 ÷ 平均使用天数
-            if (inUseCount > 0) {
-                long averageDays = totalDays / inUseCount;
-                if (averageDays > 0) {
-                    dailyAverageCost = inUseTotalPrice / averageDays;
+                    double dailyCost = DataUtils.calculateDailyCost(item.getPurchaseDate(), item.getPrice());
+                    totalDailyAverageCost += dailyCost;
                 }
             }
         }
 
-        binding.tvTotalAmount.setText(String.format("%.2f", totalAmount));
-        // 显示日均成本（保留两位小数）
-        binding.tvDailyAverageCost.setText(String.format("%.2f", dailyAverageCost));
+        binding.tvTotalAmounts.setText(DataUtils.formatNumber(totalAmounts));
+        binding.tvDailyAverageCost.setText(DataUtils.formatNumber(totalDailyAverageCost));
     }
 
     @Override
