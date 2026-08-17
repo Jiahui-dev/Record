@@ -17,10 +17,10 @@
             android:id="@+id/tv_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="提示"
+            android:layout_marginStart="24dp"
             android:textColor="#333333"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,21 +31,23 @@
             android:layout_marginBottom="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:gravity="center"
             android:lineSpacingExtra="4dp"
             android:text="弹窗的具体内容"
             android:textColor="#666666"
             android:textSize="15sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#EEEEEE" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"/>
 
             <TextView
                 android:id="@+id/btn_dialog_cancel"
@@ -56,12 +58,9 @@
                 android:text="取消"
                 android:textColor="#999999"
                 android:textSize="16sp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 android:background="?attr/selectableItemBackground" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="#EEEEEE" />
 
             <TextView
                 android:id="@+id/btn_dialog_confirm"
@@ -70,8 +69,10 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="确定"
-                android:textColor="#FF6600"
+                android:textColor="#999999"
                 android:textSize="16sp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
                 android:background="?attr/selectableItemBackground" />
         </LinearLayout>
 
