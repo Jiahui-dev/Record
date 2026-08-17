@@ -12,8 +12,9 @@
     <color name="red_price">#ed3107</color>
     <color name="grey_backGround">#f5f7fd</color>
     <color name="text_color_black">#0a0700</color>
-    <color name="text_color6">#666666</color>
-    <color name="text_color3">#333333</color>
+    <color name="text_color_9">#999999</color>
+    <color name="text_color_6">#666666</color>
+    <color name="text_color_3">#333333</color>
     <color name="color_theme_yellow">#ffde2c</color>
     <color name="green_product_state">#2b9e69</color>
     <color name="red_product_state">#dd444e</color>

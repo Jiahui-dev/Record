@@ -14,7 +14,7 @@ import com.yjh.record.R;
 import com.yjh.record.databinding.AcSettingBinding;
 
 /**
- * Created by jiahui on 2026/7/24
+ * Created by jiahui on 2026/07/24
  */
 public class SettingActivity extends BaseActivity<AcSettingBinding> {
 
