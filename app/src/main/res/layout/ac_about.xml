@@ -17,13 +17,11 @@
 
     <ImageView
         android:id="@+id/iv_app_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:src="@drawable/pic_icon"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/title_bar"/>
 
     <TextView
@@ -31,34 +29,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EIRecord"
-        android:textSize="24sp"
-        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:layout_marginTop="6dp"
         android:layout_marginStart="6dp"
-        android:layout_marginBottom="2dp"
+        android:textColor="@color/core_text_color3"
         app:layout_constraintStart_toEndOf="@id/iv_app_icon"
-        app:layout_constraintTop_toBottomOf="@id/title_bar"
-        app:layout_constraintBottom_toTopOf="@id/tv_app_version"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintTop_toBottomOf="@id/title_bar" />
 
     <TextView
         android:id="@+id/tv_app_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1.0.0"
-        android:textSize="18sp"
+        android:textSize="15sp"
+        android:textColor="@color/core_text_color3"
         android:layout_marginStart="6dp"
         app:layout_constraintStart_toEndOf="@id/iv_app_icon"
-        app:layout_constraintTop_toBottomOf="@id/tv_app_name"
-        app:layout_constraintBottom_toBottomOf="@id/iv_app_icon"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name" />
 
     <TextView
         android:id="@+id/tv_app_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textSize="16sp"
-        android:textColor="@color/text_color_6"
+        android:textSize="15sp"
+        android:textColor="@color/text_color_3"
         app:layout_constraintTop_toBottomOf="@id/iv_app_icon"
         app:layout_constraintStart_toStartOf="parent"
         android:text="基于红烧肉的多水泥土打台球客户端，复杂难用，不想开源有广告。"/>
@@ -93,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="项目"
             android:textColor="@color/core_text_color3"
-            android:textSize="22sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +98,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="8dp"
-            android:src="@drawable/pic_setting_disclaimers"
+            android:src="@drawable/icon_jump"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -130,7 +125,7 @@
             android:layout_height="wrap_content"
             android:text="Telegram"
             android:textColor="@color/core_text_color3"
-            android:textSize="22sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -140,7 +135,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="8dp"
-            android:src="@drawable/pic_setting_disclaimers"
+            android:src="@drawable/icon_jump"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

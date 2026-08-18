@@ -1,5 +1,6 @@
 package com.yjh.record.constant;
 
+import com.yjh.record.activity.AboutActivity;
 import com.yjh.record.activity.AddProductActivity;
 import com.yjh.record.activity.DetailPageProductActivity;
 import com.yjh.record.activity.HomePageActivity;
@@ -14,5 +15,9 @@ public interface Constant {
         IRoutePath<DetailPageProductActivity> DetailPageProduct = () -> DetailPageProductActivity.class;
         IRoutePath<SettingActivity> Setting = () -> SettingActivity.class;
         IRoutePath<HomePageSearchActivity> HomePageSearch = () -> HomePageSearchActivity.class;
+        IRoutePath<AboutActivity> About = () -> AboutActivity.class;
+    }
+    interface URL{
+        String GitHub="https://github.com/Jiahui-dev/Record";
     }
 }

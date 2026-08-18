@@ -6,11 +6,13 @@ import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.activity.BaseActivity;
 import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
 import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
+import com.yjh.record.constant.Constant;
 import com.yjh.record.databinding.AcSettingBinding;
 
 /**
@@ -20,6 +22,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
 
     private ConstraintLayout cl_01;
     private ConstraintLayout cl_04;
+    private ConstraintLayout cl_05;
 
     @Override
     protected AcSettingBinding initBinding(LayoutInflater inflater) {
@@ -38,6 +41,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
         titleBar.setTitle("设置", TitleBar.TitleGravity.LEFT);
         cl_01 = binding.cl01;
         cl_04 = binding.cl04;
+        cl_05 = binding.cl05;
     }
 
     @Override
@@ -51,15 +55,15 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
             ToastUtils.showShort("点击了cl_01");
         }, cl_01);
 
-        setClick(v->{
-            CommonDialog dialog=new CommonDialog();
+        setClick(v -> {
+            CommonDialog dialog = new CommonDialog();
             dialog.setTitle("免责声明");
             dialog.setContent("本软件仅供学习交流、科研等非商业性质的用途，严禁将本软件用于商业目的。如有任何商业行为，均与本软件无关。");
-            dialog.setButtons("同意","退出");
-            dialog.setOnConfirmListener(result->{
+            dialog.setButtons("同意", "退出");
+            dialog.setOnConfirmListener(result -> {
                 dialog.dismiss();
             });
-            dialog.setOnCancelListener(result->{
+            dialog.setOnCancelListener(result -> {
                 finishAffinity();
 
                 Intent homeIntent = new Intent(Intent.ACTION_MAIN);
@@ -67,12 +71,17 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(homeIntent);
             });
-            dialog.show(getSupportFragmentManager(),"dialog_disclaimers");
-        },cl_04);
+            dialog.show(getSupportFragmentManager(), "dialog_disclaimers");
+        }, cl_04);
+
+        setClick(v->{
+            BaseRouter.getInstance().build(Constant.Router.About).navigation(this);
+        },cl_05);
     }
 
     @Override
     protected int getStatusBarColor() {
         return R.color.grey_backGround;
     }
+
 }
