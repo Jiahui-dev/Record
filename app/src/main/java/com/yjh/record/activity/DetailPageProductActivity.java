@@ -58,23 +58,23 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
         binding.tvPurchaseDate.setText(mProduct.getPurchaseDate());
         binding.tvProductPriceSecond.setText("¥"+ DataUtils.formatNumber(mProduct.getPrice()));
         binding.tvDailyCost.setText("¥"+ DataUtils.calculateDailyCostFormatted(mProduct.getPurchaseDate(),mProduct.getPrice()));
-        int textColor = R.color.green_product_state;
+        int textColor = R.color.product_state_green;
         switch (ProductStateDict.getTitleByCode(mProduct.getStateCode())) {
             case "使用中":
-                textColor = R.color.green_product_state;
+                textColor = R.color.product_state_green;
                 binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
                 break;
             case "闲置中":
-                textColor = R.color.brown_product_state;
+                textColor = R.color.product_state_brown;
                 binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
                 break;
             case "已损坏":
-                textColor = R.color.red_product_state;
+                textColor = R.color.product_state_red;
                 binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
                 break;
             case "已变卖":
             case "已丢失":
-                textColor = R.color.gray_product_state;
+                textColor = R.color.product_state_grey;
                 binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
                 break;
         }

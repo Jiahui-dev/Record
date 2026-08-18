@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/grey_backGround">
+    android:background="@color/background_grey_theme">
 
     <com.yjh.base.uikit.widget.titleBar.TitleBar
         android:id="@+id/title_bar"
@@ -37,7 +37,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                android:background="@color/grey_backGround"
+                android:background="@color/background_grey_theme"
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -145,7 +145,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="24sp"
                     android:fontFamily="@font/douyin"
-                    android:textColor="@color/text_color_3"
+                    android:textColor="@color/uikit_text_color_3"
                     tools:text="9999" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -179,7 +179,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="24sp"
                     android:fontFamily="@font/douyin"
-                    android:textColor="@color/text_color_3"
+                    android:textColor="@color/uikit_text_color_3"
                     tools:text="9999" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

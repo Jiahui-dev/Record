@@ -24,7 +24,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Record"
 include ':app'
-include ':base'
 includeBuild('../BaseDemo') {
     dependencySubstitution {
         // 将业务项目里依赖的 maven 坐标，无缝替换为本地对应的 module

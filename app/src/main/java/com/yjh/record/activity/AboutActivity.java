@@ -1,11 +1,9 @@
 package com.yjh.record.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -32,15 +30,15 @@ public class AboutActivity extends BaseActivity<AcAboutBinding> {
     @Override
     protected void initView() {
         super.initView();
-        TitleBar titleBar=binding.titleBar;
-        cl_01=binding.cl01;
-        cl_02=binding.cl02;
+        TitleBar titleBar = binding.titleBar;
+        cl_01 = binding.cl01;
+        cl_02 = binding.cl02;
         titleBar.setTitle("关于", TitleBar.TitleGravity.LEFT);
     }
 
     @Override
     protected void initListener() {
-        setClick(v->{
+        setClick(v -> {
             String url = Constant.URL.GitHub;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 
@@ -49,7 +47,7 @@ public class AboutActivity extends BaseActivity<AcAboutBinding> {
             } else {
                 ToastUtils.showShort("未找到可用的浏览器应用");
             }
-        },cl_01,cl_02);
+        }, cl_01, cl_02);
     }
 
     @Override
@@ -59,6 +57,6 @@ public class AboutActivity extends BaseActivity<AcAboutBinding> {
 
     @Override
     protected int getStatusBarColor() {
-        return R.color.grey_backGround;
+        return R.color.background_grey_theme;
     }
 }

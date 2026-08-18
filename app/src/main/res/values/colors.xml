@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="grey_100">#fefefe</color>
-    <color name="ThemeColor">#E85C5C</color>
-    <color name="red_price">#ed3107</color>
-    <color name="grey_backGround">#f5f7fd</color>
-    <color name="text_color_black">#0a0700</color>
-    <color name="text_color_9">#999999</color>
-    <color name="text_color_6">#666666</color>
-    <color name="text_color_3">#333333</color>
-    <color name="color_theme_yellow">#ffde2c</color>
-    <color name="green_product_state">#2b9e69</color>
-    <color name="red_product_state">#dd444e</color>
-    <color name="brown_product_state">#cf7c41</color>
-    <color name="gray_product_state">#6a7381</color>
+
+    <color name="background_grey_theme">#f5f7fd</color>
+    <color name="product_state_green">#2b9e69</color>
+    <color name="product_state_red">#dd444e</color>
+    <color name="product_state_brown">#cf7c41</color>
+    <color name="product_state_grey">#6a7381</color>
 
 </resources>

@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by youjiahui on 2026/7/18
+ * Created by youjiahui on 2026/07/18
  */
 public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePageBinding> implements IRefreshListener, LoadProductsContract.View {
 
@@ -53,27 +53,27 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     protected SimpleAdapter<ProductBean, ItemProductBinding> createAdapter() {
         productAdapter = new SimpleAdapter<>(this, ItemProductBinding::inflate, (binding, data, position) -> {
             binding.tvProductName.setText(data.getName());
-            binding.tvProductPrice.setText("¥"+ DataUtils.formatNumber(data.getPrice()));
-            binding.tvPurchaseDate.setText(DataUtils.getDaysFromPurchaseDate(data.getPurchaseDate())+"天");
+            binding.tvProductPrice.setText("¥" + DataUtils.formatNumber(data.getPrice()));
+            binding.tvPurchaseDate.setText(DataUtils.getDaysFromPurchaseDate(data.getPurchaseDate()) + "天");
             binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(data.getIconCode()));
             binding.tvProductState.setText(ProductStateDict.getTitleByCode(data.getStateCode()));
-            int textColor = R.color.green_product_state;
+            int textColor = R.color.product_state_green;
             switch (ProductStateDict.getTitleByCode(data.getStateCode())) {
                 case "使用中":
-                    textColor = R.color.green_product_state;
+                    textColor = R.color.product_state_green;
                     binding.tvProductState.setBackgroundResource(R.drawable.bg_green_radius_25);
                     break;
                 case "闲置中":
-                    textColor = R.color.brown_product_state;
+                    textColor = R.color.product_state_brown;
                     binding.tvProductState.setBackgroundResource(R.drawable.bg_brown_radius_25);
                     break;
                 case "已损坏":
-                    textColor = R.color.red_product_state;
+                    textColor = R.color.product_state_red;
                     binding.tvProductState.setBackgroundResource(R.drawable.bg_red_radius_25);
                     break;
                 case "已变卖":
                 case "已丢失":
-                    textColor = R.color.gray_product_state;
+                    textColor = R.color.product_state_grey;
                     binding.tvProductState.setBackgroundResource(R.drawable.bg_silvery_radius_25);
                     break;
             }

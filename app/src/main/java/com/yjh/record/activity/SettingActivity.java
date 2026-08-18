@@ -81,7 +81,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
 
     @Override
     protected int getStatusBarColor() {
-        return R.color.grey_backGround;
+        return R.color.background_grey_theme;
     }
 
 }

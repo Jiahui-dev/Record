@@ -206,7 +206,7 @@
         android:alpha="0.8"
         android:contentDescription="添加商品"
         android:src="@drawable/ic_add_circle"
-        app:backgroundTint="@color/core_teal_700"
+        app:backgroundTint="@color/uikit_blue_light"
         app:elevation="6dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by jiahui on 2026/7/18
+ * Created by jiahui on 2026/07/18
  */
 public class AddProductActivity extends BaseActivity<AcAddProductBinding> implements AddProductContract.View {
 
