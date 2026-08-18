@@ -145,7 +145,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="24sp"
                     android:fontFamily="@font/douyin"
-                    android:textColor="@color/uikit_text_color_3"
+                    android:textColor="@color/uikit_text_3"
                     tools:text="9999" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -179,7 +179,7 @@
                     android:layout_marginTop="4dp"
                     android:textSize="24sp"
                     android:fontFamily="@font/douyin"
-                    android:textColor="@color/uikit_text_color_3"
+                    android:textColor="@color/uikit_text_3"
                     tools:text="9999" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
