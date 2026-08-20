@@ -43,7 +43,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="8dp"
-            android:src="@drawable/pic_setting_theme"
+            android:src="@drawable/icon_theme"
+            app:tint="@color/uikit_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -101,11 +102,12 @@
             android:id="@+id/iv_02"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/pic_setting_import"
+            android:padding="8dp"
+            android:src="@drawable/icon_import"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/uikit_icon" />
 
         <TextView
             android:id="@+id/tv_main_02"
@@ -160,8 +162,8 @@
             android:id="@+id/iv_03"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/pic_setting_export"
+            android:padding="8dp"
+            android:src="@drawable/icon_output"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

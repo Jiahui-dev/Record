@@ -4,22 +4,20 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjh.base.core.annotation.InjectPresenter;
-import com.yjh.base.core.model.event.EventHub;
-import com.yjh.base.core.model.event.RefreshEvent;
+import com.yjh.base.core.event.hub.EventHub;
+import com.yjh.base.core.event.model.RefreshEvent;
 import com.yjh.base.core.router.BaseRouter;
 import com.yjh.base.uikit.activity.BaseRecyclerActivity;
 import com.yjh.base.uikit.adapter.SimpleAdapter;
 import com.yjh.base.uikit.controller.PermissionController;
 import com.yjh.base.uikit.listener.IRefreshListener;
 import com.yjh.base.uikit.controller.PerformanceTestingController;
-import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.record.R;
 import com.yjh.record.constant.Constant;
 import com.yjh.record.contract.LoadProductsContract;

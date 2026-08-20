@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat;
 
 import com.yjh.base.core.annotation.InjectPresenter;
 import com.yjh.base.core.annotation.IntentParam;
-import com.yjh.base.core.model.event.EventHub;
-import com.yjh.base.core.model.event.RefreshEvent;
+import com.yjh.base.core.event.hub.EventHub;
+import com.yjh.base.core.event.model.RefreshEvent;
 import com.yjh.base.uikit.activity.BaseActivity;
 import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
 import com.yjh.base.utils.util.ToastUtils;

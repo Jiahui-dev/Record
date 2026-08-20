@@ -3,12 +3,9 @@ package com.yjh.record.activity;
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
-import com.yjh.base.core.model.event.EventHub;
-import com.yjh.base.core.model.event.RefreshEvent;
+import com.yjh.base.core.event.hub.EventHub;
+import com.yjh.base.core.event.model.RefreshEvent;
 import com.yjh.base.uikit.widget.dialog.bottom.MultiCategoryGridDialog;
 import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
 import com.yjh.record.R;
