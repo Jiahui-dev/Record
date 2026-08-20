@@ -13,7 +13,6 @@ import com.yjh.base.core.model.event.EventHub;
 import com.yjh.base.core.model.event.RefreshEvent;
 import com.yjh.base.uikit.activity.BaseActivity;
 import com.yjh.base.uikit.widget.dialog.center.CommonDialog;
-import com.yjh.base.uikit.widget.titleBar.TitleBar;
 import com.yjh.base.utils.util.ToastUtils;
 import com.yjh.record.R;
 import com.yjh.record.contract.DeleteProductContract;
@@ -32,7 +31,6 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
     @IntentParam(name = "product")
     private ProductBean mProduct;
 
-    private TitleBar titleBar;
     private ImageView ivDeleteProduct;
 
     @InjectPresenter
@@ -46,11 +44,10 @@ public class DetailPageProductActivity extends BaseActivity<AcDetailPageProductB
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void initView() {
-        titleBar = binding.titleBar;
-        titleBar.setTitle("资产详情");
+        binding.titleBar.setTitle("资产详情");
         ivDeleteProduct = new ImageView(this);
-        ivDeleteProduct.setImageResource(R.drawable.pic_delete);
-        titleBar.addRightView(ivDeleteProduct, 20, 20);
+        ivDeleteProduct.setImageResource(com.yjh.base.uikit.R.drawable.uikit_icon_delect);
+        binding.titleBar.addRightView(ivDeleteProduct, 20, 20);
         binding.tvProductName.setText(mProduct.getName());
         binding.tvProductPrice.setText("¥"+ DataUtils.formatNumber(mProduct.getPrice()));
         binding.ivProductPicture.setImageResource(ProductIconDict.getIconResByCode(mProduct.getIconCode()));

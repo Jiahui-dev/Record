@@ -19,9 +19,6 @@ import com.yjh.record.databinding.AcAboutBinding;
  */
 public class AboutActivity extends BaseActivity<AcAboutBinding> {
 
-    private ConstraintLayout cl_01;
-    private ConstraintLayout cl_02;
-
     @Override
     protected AcAboutBinding initBinding(LayoutInflater inflater) {
         return AcAboutBinding.inflate(inflater);
@@ -30,10 +27,7 @@ public class AboutActivity extends BaseActivity<AcAboutBinding> {
     @Override
     protected void initView() {
         super.initView();
-        TitleBar titleBar = binding.titleBar;
-        cl_01 = binding.cl01;
-        cl_02 = binding.cl02;
-        titleBar.setTitle("关于", TitleBar.TitleGravity.LEFT);
+        binding.titleBar.setTitle("关于", TitleBar.TitleGravity.LEFT);
     }
 
     @Override
@@ -47,7 +41,7 @@ public class AboutActivity extends BaseActivity<AcAboutBinding> {
             } else {
                 ToastUtils.showShort("未找到可用的浏览器应用");
             }
-        }, cl_01, cl_02);
+        }, binding.cl01, binding.cl02);
     }
 
     @Override

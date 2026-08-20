@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.yjh.base.core.model.event.EventHub;
 import com.yjh.base.core.model.event.RefreshEvent;
-import com.yjh.base.uikit.widget.dialog.bottom.GridTabBottomDialog;
+import com.yjh.base.uikit.widget.dialog.bottom.MultiCategoryGridDialog;
 import com.yjh.base.uikit.widget.dialog.center.ListSelectDialog;
 import com.yjh.record.R;
 import com.yjh.record.contract.AddProductContract;
@@ -37,12 +37,6 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     @IntentParam
     String data;
 
-    private EditText etProductName;
-    private EditText etProductPrice;
-    private EditText etPurchaseDate;
-    private EditText etProductState;
-    private Button btnSubmitProduct;
-    private ImageView ivProductIcon;
     private String dateStr;
 
     private String selectedIconCode = ProductIconDict.GOODS.getCode();
@@ -60,14 +54,8 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
     public void initView() {
         TitleBar titleBar = findViewById(R.id.title_bar);
         titleBar.setTitle("添加资产", TitleBar.TitleGravity.LEFT);
-        etPurchaseDate = binding.etPurchaseDate;
-        btnSubmitProduct = binding.btnSubmitProduct;
-        etProductName = binding.etProductName;
-        etProductPrice = binding.etProductPrice;
-        ivProductIcon = binding.ivProductIcon;
-        ivProductIcon.setImageResource(R.drawable.pic_goods);
-        etProductState = binding.etProductState;
-        etProductState.setText(ProductStateDict.getTitleByCode(selectedStateCode));
+        binding.ivProductIcon.setImageResource(R.drawable.pic_goods);
+        binding.etProductState.setText(ProductStateDict.getTitleByCode(selectedStateCode));
     }
 
     @SuppressLint("SetTextI18n")
@@ -76,11 +64,11 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
         setClick(v -> {
             DateSpinner dateSpinner = new DateSpinner(this, 3);
             dateSpinner.setOnSelectedListener((year, month, day) -> {
-                etPurchaseDate.setText(year + "年" + month + "月" + day + "日");
+                binding.etPurchaseDate.setText(year + "年" + month + "月" + day + "日");
                 dateStr = year + "." + month + "." + day;
             });
             dateSpinner.show();
-        }, etPurchaseDate);
+        }, binding.etPurchaseDate);
 
         setClick(v -> {
             List<String> options = ProductStateDict.getTitleList();
@@ -90,12 +78,12 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                         binding.etProductState.setText(item);
                         selectedStateCode = ProductStateDict.getCodeByTitle(item);
                     }).show(getSupportFragmentManager(), "");
-        }, etProductState);
+        }, binding.etProductState);
 
         setClick(v -> {
 
-            String productName = etProductName.getText().toString().trim();
-            String productPrice = etProductPrice.getText().toString().trim();
+            String productName = binding.etProductName.getText().toString().trim();
+            String productPrice = binding.etProductPrice.getText().toString().trim();
             double price = ConvertUtils.toDouble(productPrice);
 
             if (productName.isEmpty()) {
@@ -119,28 +107,11 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
 
             addProductPresenter.saveProduct(selectedIconCode, productName, price, dateStr, 1, selectedStateCode);
 
-        }, btnSubmitProduct);
+        }, binding.btnSubmitProduct);
 
         setClick(v -> {
-//            // 从 Enum 字典拿数据列表
-//            List<ProductIconDict> menus = Arrays.asList(ProductIconDict.values());
-//
-//            GridPanelBottomDialog.newInstance(
-//                    3, 4, menus,
-//                    (binding, data, position) -> {
-//                        binding.tvItemName.setText(data.getTitle());
-//                        binding.ivItemIcon.setImageResource(data.getIconRes());
-//                    },
-//                    (data, globalPosition) -> {
-//                        ivProductIcon.setImageResource(data.getIconRes());
-//                        //清除 pic_set_product_icon
-//                        binding.ivProductIcon.setBackground(null);
-//                        selectedIconCode = data.getCode();
-//                    }
-//
-//            ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_product_icon");
-            List<GridTabBottomDialog.TabCategory<ProductIconDict>> categories = new ArrayList<>();
-            categories.add(new GridTabBottomDialog.TabCategory<>(
+            List<MultiCategoryGridDialog.TabCategory<ProductIconDict>> categories = new ArrayList<>();
+            categories.add(new MultiCategoryGridDialog.TabCategory<>(
                     "数码产品",
                     Arrays.asList(ProductIconDict.CPU, ProductIconDict.CHASSIS, ProductIconDict.GRAPHICS_CARD,
                             ProductIconDict.MOUSE, ProductIconDict.HEADPHONES_OE, ProductIconDict.DISPLAY,
@@ -151,29 +122,29 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                             ProductIconDict.MOTHERBOARD, ProductIconDict.ROUTER, ProductIconDict.VR_01, ProductIconDict.VR_02)
             ));
 
-            categories.add(new GridTabBottomDialog.TabCategory<>(
+            categories.add(new MultiCategoryGridDialog.TabCategory<>(
                     "生活用品",
                     Arrays.asList(ProductIconDict.TOILETRIES, ProductIconDict.BROADBAND, ProductIconDict.ELECTRIC_KETTLE)
             ));
 
-            categories.add(new GridTabBottomDialog.TabCategory<>(
+            categories.add(new MultiCategoryGridDialog.TabCategory<>(
                     "家用电器",
                     Arrays.asList(ProductIconDict.TELEVISION, ProductIconDict.FRIDGE, ProductIconDict.WASHING_MACHINE,
                             ProductIconDict.AIR_CONDITIONER, ProductIconDict.HEATING)
             ));
 
-            categories.add(new GridTabBottomDialog.TabCategory<>(
+            categories.add(new MultiCategoryGridDialog.TabCategory<>(
                     "车品出行",
                     Arrays.asList(ProductIconDict.BICYCLE_01, ProductIconDict.BICYCLE_02, ProductIconDict.BICYCLE_03,
                             ProductIconDict.ELECTRIC_VEHICLE, ProductIconDict.MOTORCYCLE)
             ));
 
-            categories.add(new GridTabBottomDialog.TabCategory<>(
+            categories.add(new MultiCategoryGridDialog.TabCategory<>(
                     "其他",
                     Arrays.asList(ProductIconDict.GOODS)
             ));
 
-            GridTabBottomDialog.newInstance(
+            MultiCategoryGridDialog.newInstance(
                     6,
                     categories,
                     (binding, data, position) -> {
@@ -181,11 +152,11 @@ public class AddProductActivity extends BaseActivity<AcAddProductBinding> implem
                         binding.ivItemIcon.setImageResource(data.getIconRes());
                     },
                     (data, globalPosition) -> {
-                        ivProductIcon.setImageResource(data.getIconRes());
+                        binding.ivProductIcon.setImageResource(data.getIconRes());
                         selectedIconCode = data.getCode();
                     }
             ).showTitle(true).show(getSupportFragmentManager(), "dialog_select_icon");
-        }, ivProductIcon);
+        }, binding.ivProductIcon);
     }
 
     @Override

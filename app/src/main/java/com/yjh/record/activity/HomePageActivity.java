@@ -39,10 +39,6 @@ import java.util.List;
  */
 public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePageBinding> implements IRefreshListener, LoadProductsContract.View {
 
-    private TitleBar titleBar;
-    private ImageView ivAddProduct;
-    private ImageView ivSetting;
-
     private SimpleAdapter<ProductBean, ItemProductBinding> productAdapter;
 
     @InjectPresenter
@@ -114,14 +110,11 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     @Override
     protected void initView() {
         super.initView();
-        ivAddProduct = binding.fabAddProduct;
-        ivSetting = binding.ivSetting;
-        titleBar = binding.titleBar;
-        titleBar.setBackVisible(false);
+        binding.titleBar.setBackVisible(false);
         List<String> hints = new ArrayList<>();
         hints.add("搜索");
-        titleBar.setSearchHints(hints);
-        titleBar.startRoll();
+        binding.titleBar.setSearchHints(hints);
+        binding.titleBar.startRoll();
 
         View rootLayout = findViewById(R.id.rootLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) rootLayout.getBackground();
@@ -141,15 +134,15 @@ public class HomePageActivity extends BaseRecyclerActivity<ProductBean, AcHomePa
     protected void initListener() {
         setClick(v -> {
             BaseRouter.getInstance().build(Constant.Router.AddProduct).navigation(this);
-        }, ivAddProduct);
+        }, binding.fabAddProduct);
 
         setClick(v -> {
             BaseRouter.getInstance().build(Constant.Router.Setting).navigation(this);
-        }, ivSetting);
+        }, binding.ivSetting);
 
         setClick(v -> {
             BaseRouter.getInstance().build(Constant.Router.HomePageSearch).navigation(this);
-        }, titleBar);
+        }, binding.titleBar);
     }
 
     @Override

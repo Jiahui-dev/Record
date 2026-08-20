@@ -20,10 +20,6 @@ import com.yjh.record.databinding.AcSettingBinding;
  */
 public class SettingActivity extends BaseActivity<AcSettingBinding> {
 
-    private ConstraintLayout cl_01;
-    private ConstraintLayout cl_04;
-    private ConstraintLayout cl_05;
-
     @Override
     protected AcSettingBinding initBinding(LayoutInflater inflater) {
         return AcSettingBinding.inflate(inflater);
@@ -37,11 +33,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
     @Override
     protected void initView() {
         super.initView();
-        TitleBar titleBar = binding.titleBar;
-        titleBar.setTitle("设置", TitleBar.TitleGravity.LEFT);
-        cl_01 = binding.cl01;
-        cl_04 = binding.cl04;
-        cl_05 = binding.cl05;
+        binding.titleBar.setTitle("设置", TitleBar.TitleGravity.LEFT);
     }
 
     @Override
@@ -53,7 +45,7 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
     protected void initListener() {
         setClick(v -> {
             ToastUtils.showShort("点击了cl_01");
-        }, cl_01);
+        }, binding.cl01);
 
         setClick(v -> {
             CommonDialog dialog = new CommonDialog();
@@ -72,11 +64,11 @@ public class SettingActivity extends BaseActivity<AcSettingBinding> {
                 startActivity(homeIntent);
             });
             dialog.show(getSupportFragmentManager(), "dialog_disclaimers");
-        }, cl_04);
+        }, binding.cl04);
 
         setClick(v->{
             BaseRouter.getInstance().build(Constant.Router.About).navigation(this);
-        },cl_05);
+        },binding.cl05);
     }
 
     @Override
