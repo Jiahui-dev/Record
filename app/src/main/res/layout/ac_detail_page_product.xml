@@ -203,8 +203,10 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_title_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
                 android:text="使用"
                 android:textSize="@dimen/sp_16"
                 app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +214,123 @@
                 android:textColor="@color/uikit_text_primary"/>
 
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_01"
+                app:cardBackgroundColor="@color/background_grey_theme"
+                app:cardCornerRadius="@dimen/dp_20"
+                app:cardElevation="0dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10">
+
+
+                        <TextView
+                            android:text="购买时间"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_primary"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:text="2026-01-01"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_secondary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_margin="@dimen/dp_4"
+                        android:background="@color/uikit_grey_200"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10">
+
+
+                        <TextView
+                            android:text="使用天数"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_primary"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:text="100"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_secondary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_margin="@dimen/dp_4"
+                        android:background="@color/uikit_grey_200"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10">
+
+
+                        <TextView
+                            android:text="剩余保修天数"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_primary"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:text="200"
+                            android:textSize="@dimen/sp_16"
+                            android:textColor="@color/uikit_text_secondary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+
+            </androidx.cardview.widget.CardView>
 
 
 
